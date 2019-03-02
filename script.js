@@ -1,28 +1,34 @@
 //Elements on the page
-let searchButton = document.getElementById("searchButton")
-let searchBar = document.getElementById("searchBar");
+const searchButton = document.getElementById("searchButton");
+  //Array of Input Fields
+const inputFields = document.querySelectorAll(".inputField")
 
 //Allows the user to search with the "enter" key
-searchBar.addEventListener("keyup",function(event){
-  if(event.keyCode === 13){
+inputFields.forEach(function(elem){
+  elem.addEventListener("keyup",function(event){
     searchButton.click();
-  }
-});
+  });
+})
 
 //NASA's API addresses
 const rootAddress = "https://images-api.nasa.gov"
 const searchExt = "/search"
 
-//Creating an XMLHttpRequest object
+//Creating an XMLHttpRequest object and response object
 const request = new XMLHttpRequest();
+let response;
 
 //Defining behavior upon request response
 request.onreadystatechange = function(){
-  if(request.readyState === 4){
-    if(request.status === 200){
-       console.log(request.responseText);
+  if(request.readyState == 4){
+    if(request.status == 200){
+       response = JSON.parse(request.responseText);
+    } else if(request.status == 400){
+      alert("Bad Request");
+    } else if(request.state == 404){
+      alert("Requested resource doesn't exist")
     } else {
-      alert("API did not respond as expected");
+      alert("API did not respond as expected")
     }
   }
 };
@@ -35,7 +41,7 @@ function callSearchAPI(q){
 
 //Handles input once search button is pressed
 function search(){
-  var text = searchBar.value;
+  var text = inputFields[0].value;
   if(text != ""){
     callSearchAPI(text);
   }

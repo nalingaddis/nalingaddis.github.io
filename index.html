@@ -10,16 +10,19 @@
 Search for NASA Images
 </head>
 
-<!-- Using a form to call the api
-<form class="search" method="GET" action="https://images-api.nasa.gov/search">
-  <input id="searchBar" type="text" name="q" placeholder="Search Media Database" >
-  <input id="searchButton" type="submit" value="Search">
-</form>
--->
-
-<div class="searchField">
-<input id="searchBar" type="text" placeholder="Search Media Database">
-<button id="searchButton" onclick="search()">Search</button>
+<div class="searchArea">
+  <div>
+    <input id="freeSearch" class="inputField" type="text" placeholder="Free Search">
+    <input id="centerSearch" class="inputField" type="text" placeholder="Specify NASA Center">
+    <input id="descriptionSearch" class="inputField" type="text" placeholder="Description">
+    <input id="keywordSearch" class="inputField" type="text" placeholder="Key Words">
+    <input id="nasaIdSearch" class="inputField" type="text" placeholder="NASA Media ID">
+    <input id="photgrapherSearch" class="inputField" type="text" placeholder="Photographer">
+    <input id="titleSearch" class="inputField" type="text" placeholder="Title">
+    <input id="startYearSearch" class="inputField" type="text" placeholder="Start Year (YYYY)">
+    <input id="endYearSearch" class="inputField" type="text" placeholder="End Year (YYYY)">
+  </div>
+  <button id="searchButton" onclick="search()">Search</button>
 <div>
 
 <!-- Linking JS -->
