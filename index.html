@@ -7,23 +7,27 @@
   NASA Search
 </title>
 <head>
-Search for NASA Images
+<h1>Search for NASA Images</h1>
 </head>
 
 <div class="searchArea">
   <div>
-    <input id="freeSearch" class="inputField" type="text" placeholder="Free Search">
-    <input id="centerSearch" class="inputField" type="text" placeholder="Specify NASA Center">
-    <input id="descriptionSearch" class="inputField" type="text" placeholder="Description">
-    <input id="keywordSearch" class="inputField" type="text" placeholder="Key Words">
-    <input id="nasaIdSearch" class="inputField" type="text" placeholder="NASA Media ID">
-    <input id="photgrapherSearch" class="inputField" type="text" placeholder="Photographer">
-    <input id="titleSearch" class="inputField" type="text" placeholder="Title">
-    <input id="startYearSearch" class="inputField" type="text" placeholder="Start Year (YYYY)">
-    <input id="endYearSearch" class="inputField" type="text" placeholder="End Year (YYYY)">
+    <input id="q" class="inputField" type="text" placeholder="Free Search">
+    <input id="center" class="inputField" type="text" placeholder="Specify NASA Center">
+    <input id="description" class="inputField" type="text" placeholder="Description">
+    <input id="keywords" class="inputField" type="text" placeholder="Key Words">
+    <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
+    <input id="photographer" class="inputField" type="text" placeholder="Photographer">
+    <input id="title" class="inputField" type="text" placeholder="Title">
+    <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
+    <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
   </div>
-  <button id="searchButton" onclick="search()">Search</button>
+  <button id="searchButton" onclick="callSearchAPI()">Search</button>
 <div>
+
+<div id="imagePane">
+  <p id="searchCount"></p>
+</div>
 
 <!-- Linking JS -->
 <script type="text/javascript" src="script.js"></script>
