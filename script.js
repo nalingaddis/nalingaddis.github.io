@@ -1,4 +1,4 @@
-/************* Initialize Search Elements On the Page  *************/
+/************* Initialize Search Elements On the Page *************/
 //Elements on the page
 const searchButton = document.getElementById("searchButton");
   //Array of Input Fields
@@ -11,14 +11,13 @@ inputFields.forEach(function(elem){
   });
 });
 
-/************* Making API Calls  *************/
+/************* Making API Calls *************/
 //NASA's API addresses
 const rootAddress = "https://images-api.nasa.gov"
 const searchExt = "/search?media_type=image&" //always return images
 
-//Creating an XMLHttpRequest object and response object
+//Creating an XMLHttpRequest object
 const request = new XMLHttpRequest();
-let response;
 
 //Defining behavior upon request response
 request.onreadystatechange = function(){
@@ -35,7 +34,7 @@ request.onreadystatechange = function(){
   }
 };
 
-//Calls NASA's Search API, uses seachBar's text for q
+//Calls NASA's Search API
 function callSearchAPI(q){
   request.open("GET",buildSearchRequest());
   request.send();
@@ -53,13 +52,19 @@ function buildSearchRequest(){
   return rootAddress+searchExt+ext.join("&");;
 }
 
-/************* Procesing API Response's  *************/
+/************* Procesing API Response's *************/
+//Creating a response object
+let response;
+
+//Converting responseText to JSON
 function processResponse(responseText){
   response = JSON.parse(responseText);
   console.log(response);
-  
-  let imagePane = document.getElementById("imagePane");
 
-  let searchCount = document.getElementById("searchCount");
+  showResultsCount();
+}
+
+function showResultsCount(){
+  let resultsCount = document.getElementById("resultsCount");
   searchCount.textContent = response.collection.metadata["total_hits"] + " search results.";
 }
