@@ -1,4 +1,19 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
+
+<!-- Linking main stylesheet -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Linking JS -->
+<script src="script.js"></script>
+
+<title>
+  NASA Search
+</title>
 <head>
-  Hello World
+Search for NASA Images
 </head>
+
+<form class="search" method="GET" action="https://images-api.nasa.gov/search">
+  <input id="searchBar" type="text" name="q" placeholder="Search Media Database" >
+  <input id="searchButton" type="submit" value="Search">
+</form>
