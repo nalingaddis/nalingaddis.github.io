@@ -3,9 +3,6 @@
 <!-- Linking main stylesheet -->
 <link rel="stylesheet" href="style.css">
 
-<!-- Linking JS -->
-<script src="script.js"></script>
-
 <title>
   NASA Search
 </title>
@@ -13,7 +10,17 @@
 Search for NASA Images
 </head>
 
+<!-- Using a form to call the api
 <form class="search" method="GET" action="https://images-api.nasa.gov/search">
   <input id="searchBar" type="text" name="q" placeholder="Search Media Database" >
   <input id="searchButton" type="submit" value="Search">
 </form>
+-->
+
+<div class="searchField">
+<input id="searchBar" type="text" placeholder="Search Media Database">
+<button id="searchButton" onclick="search()">Search</button>
+<div>
+
+<!-- Linking JS -->
+<script type="text/javascript" src="script.js"></script>
