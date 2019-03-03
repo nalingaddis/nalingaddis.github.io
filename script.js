@@ -66,5 +66,5 @@ function processResponse(responseText){
 
 function showResultsCount(){
   let resultsCount = document.getElementById("resultsCount");
-  searchCount.textContent = response.collection.metadata["total_hits"] + " search results.";
+  resultsCount.textContent = response.collection.metadata["total_hits"] + " search results.";
 }

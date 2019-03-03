@@ -1,39 +1,43 @@
 <!DOCTYPE html>
+<html>
 
-<!-- Linking main stylesheet -->
-<link rel="stylesheet" href="style.css">
+  <!-- Linking bootstrap stylesheet-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Linking main stylesheet -->
+  <link rel="stylesheet" href="style.css">
 
-<title>
-  NASA Search
-</title>
-<head>
-<h1>Search for NASA Images</h1>
-</head>
+  <title>
+    NASA Search
+  </title>
 
-<!-- Defining Area for Search-->
-<div class="searchArea">
+  <head>
+  <h1>Search for NASA Images</h1>
+  </head>
+
+  <!-- Defining Area for Search-->
+  <div class="searchArea">
+    <div>
+      <input id="q" class="inputField" type="text" placeholder="Free Search">
+      <input id="center" class="inputField" type="text" placeholder="Specify NASA Center">
+      <input id="description" class="inputField" type="text" placeholder="Description">
+      <input id="keywords" class="inputField" type="text" placeholder="Key Words">
+      <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
+      <input id="photographer" class="inputField" type="text" placeholder="Photographer">
+      <input id="title" class="inputField" type="text" placeholder="Title">
+      <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
+      <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
+    </div>
+    <button id="searchButton" onclick="callSearchAPI()">Search</button>
   <div>
-    <input id="q" class="inputField" type="text" placeholder="Free Search">
-    <input id="center" class="inputField" type="text" placeholder="Specify NASA Center">
-    <input id="description" class="inputField" type="text" placeholder="Description">
-    <input id="keywords" class="inputField" type="text" placeholder="Key Words">
-    <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
-    <input id="photographer" class="inputField" type="text" placeholder="Photographer">
-    <input id="title" class="inputField" type="text" placeholder="Title">
-    <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
-    <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
+
+  <!-- Create Area to View Results-->
+  <div class="imagePane">
+    <p id="resultsCount"></p>
+     <div id="imageGrid" class="imageGrid">
+     </div>
   </div>
-  <button id="searchButton" onclick="callSearchAPI()">Search</button>
-<div>
 
-<!-- Create Area to View Results-->
-<div class="imagePane">
-  <p id="resultsCount"></p>
+  <!-- Linking JS -->
+  <script type="text/javascript" src="script.js"></script>
 
-  <div class="imgRow">
-    <div class="imgColumn"
-  </div>
-</div>
-
-<!-- Linking JS -->
-<script type="text/javascript" src="script.js"></script>
+</html>
