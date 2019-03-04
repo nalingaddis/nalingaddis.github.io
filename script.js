@@ -67,6 +67,8 @@ function processResponse(responseText){
   console.log(response);
 
   showResultsCount();
+
+  clearGallery();
   displayImages();
 }
 
@@ -75,11 +77,19 @@ function showResultsCount(){
   resultsCount.textContent = response.collection.metadata["total_hits"] + " search results.";
 }
 
+function clearGallery(){
+  let gallery = document.getElementById("gallery");
+  while(gallery.firstChild){
+    gallery.removeChild(gallery.firstChild);
+  }
+}
+
 function displayImages(){
   let gallery = document.getElementById("gallery");
   response.collection.items.forEach(function(elem){
     let img = new Image();
     img.src = elem.links[0]["href"];
+    img.className = "lozad rounded img_fluid";
     gallery.appendChild(img);
   });
 }
