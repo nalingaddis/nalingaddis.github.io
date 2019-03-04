@@ -16,16 +16,42 @@
 
   <!-- Defining Area for Search-->
   <div class="searchArea">
-    <div>
-      <input id="q" class="inputField" type="text" placeholder="Free Search">
-      <input id="center" class="inputField" type="text" placeholder="Specify NASA Center">
-      <input id="description" class="inputField" type="text" placeholder="Description">
-      <input id="keywords" class="inputField" type="text" placeholder="Key Words">
-      <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
-      <input id="photographer" class="inputField" type="text" placeholder="Photographer">
-      <input id="title" class="inputField" type="text" placeholder="Title">
-      <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
-      <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
+    <div class="container">
+      <div class="row">
+        <div class="column">
+          <input id="q" class="inputField" type="text" placeholder="Free Search">
+        </div>
+        <div class="column">
+          <input id="center" class="inputField" type="text" placeholder="Specify NASA Center">
+        </div>
+        <div class="column">
+          <input id="description" class="inputField" type="text" placeholder="Description">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="column">
+          <input id="keywords" class="inputField" type="text" placeholder="Key Words">
+        </div>
+        <div class="column">
+          <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
+        </div>
+        <div class="column">
+          <input id="photographer" class="inputField" type="text" placeholder="Photographer">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <input id="title" class="inputField" type="text" placeholder="Title">
+        </div>
+        <div class="column">
+          <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
+        </div>
+        <div class="column">
+          <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
+        </div>
+      </div> 
     </div>
     <button id="searchButton" onclick="callSearchAPI()">Search</button>
   <div>
