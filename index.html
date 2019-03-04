@@ -8,9 +8,8 @@
   <!-- Loading Lozad Module Via CDN -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 
-  <title>
-    NASA Search
-  </title>
+  <link rel="shortcut icon" href="resources/nasa_favicon.png"/>
+  <title> NASA Image Search </title>
 
   <head>
     <h1>Search for NASA Images</h1>
@@ -18,7 +17,8 @@
 
   <body>
     <!-- Defining Area for Search-->
-    <div class="searchArea">
+
+    <section class="searchArea">
       <div class="container">
         <div class="row">
           <div class="column">
@@ -57,14 +57,14 @@
         </div> 
       </div>
       <button id="searchButton" onclick="callSearchAPI()">Search</button>
-    <div>
+    </section>
 
     <p id="resultsCount"></p>
     
     <!-- Create Area to View Results-->
     <section>
       <div class="container-fluid">
-        <div id="gallery" class="row">
+        <div id="gallery" class="row ">
           
         </div>
       </div>

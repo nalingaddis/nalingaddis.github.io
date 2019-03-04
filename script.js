@@ -128,7 +128,7 @@ function displayImages(response){
     //Creating the image instance
     let img = new Image();
     img.src = item.links[0]["href"];
-    img.className = "lozad img-thumbnail";
+    img.className = "lozad";
 
     //Appending to alternating columns
     cols[counter%numOfCols].appendChild(buildThumbnail(img)); //builds thumbnail

@@ -1,7 +1,18 @@
+/* Custom adjustments to Bootstraps default CSS */
+
+h1{
+  text-align: center;
+}
+
 body{
-  background-color: #FFF8E7;
+  background-color: #FFF8E7; /* Cosmic Latte, the average color of the universe */
+}
+
+.searchArea{
+  align-content: center;
 }
 
 img{
-  width: 100%;
+  padding-bottom: 30px;
+  width: 100%; /* Images span the whole column */
 }
