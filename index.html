@@ -16,61 +16,69 @@
     <h1>Search for NASA Images</h1>
   </head>
 
-  <!-- Defining Area for Search-->
-  <div class="searchArea">
-    <div class="container">
-      <div class="row">
-        <div class="column">
-          <input id="q" class="inputField" type="text" placeholder="Free Search">
+  <body>
+    <!-- Defining Area for Search-->
+    <div class="searchArea">
+      <div class="container">
+        <div class="row">
+          <div class="column">
+            <input id="q" class="inputField" type="text" placeholder="Free Search">
+          </div>
+          <div class="column">
+            <input id="center" class="inputField" type="text" placeholder="NASA Center">
+          </div>
+          <div class="column">
+            <input id="description" class="inputField" type="text" placeholder="Description">
+          </div>
         </div>
-        <div class="column">
-          <input id="center" class="inputField" type="text" placeholder="Specify NASA Center">
+        
+        <div class="row">
+          <div class="column">
+            <input id="keywords" class="inputField" type="text" placeholder="Key Words">
+          </div>
+          <div class="column">
+            <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
+          </div>
+          <div class="column">
+            <input id="photographer" class="inputField" type="text" placeholder="Photographer">
+          </div>
         </div>
-        <div class="column">
-          <input id="description" class="inputField" type="text" placeholder="Description">
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="column">
-          <input id="keywords" class="inputField" type="text" placeholder="Key Words">
-        </div>
-        <div class="column">
-          <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
-        </div>
-        <div class="column">
-          <input id="photographer" class="inputField" type="text" placeholder="Photographer">
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="column">
-          <input id="title" class="inputField" type="text" placeholder="Title">
-        </div>
-        <div class="column">
-          <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
-        </div>
-        <div class="column">
-          <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
-        </div>
-      </div> 
-    </div>
-    <button id="searchButton" onclick="callSearchAPI()">Search</button>
-  <div>
+        <div class="row">
+          <div class="column">
+            <input id="title" class="inputField" type="text" placeholder="Title">
+          </div>
+          <div class="column">
+            <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
+          </div>
+          <div class="column">
+            <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
+          </div>
+        </div> 
+      </div>
+      <button id="searchButton" onclick="callSearchAPI()">Search</button>
+    <div>
 
-  <!-- Create Area to View Results-->
-  <div>
     <p id="resultsCount"></p>
     
-    <!-- BootStrap Container for the images-->
-    <div class="container">
-      <div id="gallery" class="row">
-          <!--img class="lozad rounded img_fluid" data-src="apple.jpeg"/-->
+    <!-- Create Area to View Results-->
+    <section>
+      <div class="container">
+        <div id="gallery" class="row">
+          <!-- Images go here! -->
+        </div>
+      </div>
+    </section>
+  
+      <div class="container">
+        <div id="gallery" class="row">
+          <div class="column">
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Linking JS -->
-  <script type="text/javascript" src="script.js"></script>
-
+    <!-- Linking JS -->
+    <script type="text/javascript" src="script.js"></script>
+  </body>
 </html>

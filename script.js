@@ -16,33 +16,51 @@ const observer = lozad(); // lazy loads elements with default selector as '.loza
 observer.observe();
 
 
-/************* Making API Calls *************/
+/************* API Call Handling *************/
 //NASA's API addresses
-const rootAddress = "https://images-api.nasa.gov"
-const searchExt = "/search?media_type=image&" //always return images
+const rootAddress = "https://images-api.nasa.gov/";
+const searchExt = "search?media_type=image&"; //always return images
+const assetExt = "asset/";
 
-//Creating an XMLHttpRequest object
-const request = new XMLHttpRequest();
+//Creating an XMLHttpRequest objects
+const searchRequest = new XMLHttpRequest();
+const assetRequest = new XMLHttpRequest();
 
-//Defining behavior upon request response
-request.onreadystatechange = function(){
-  if(request.readyState == 4){
-    if(request.status == 200){
-       processResponse(request.responseText);
-    } else if(request.status == 400){
+//Behavior for Search Response
+searchRequest.onreadystatechange = function(){
+  if(searchRequest.readyState == 4){
+    if(searchRequest.status == 200){
+       processSearchResponse(searchRequest.responseText);
+    } else if(searchRequest.status == 400){
       alert("Bad Request");
-    } else if(request.state == 404){
-      alert("Requested resource doesn't exist")
+    } else if(searchRequest.state == 404){
+      alert("Requested resource doesn't exist");
     } else {
-      alert("API did not respond as expected")
+      alert("API did not respond as expected");
     }
   }
 };
 
+//Behavior for Asset Request
+assetRequest.onreadystatechange = function(){
+  if(assetRequest.readyState == 4){
+    if(assetRequest.status == 200){
+       processAssetResponse(assetRequest.responseText);
+    } else if(assetRequest.status == 400){
+      alert("Bad Request");
+    } else if(assetRequest.state == 404){
+      alert("Requested resource doesn't exist");
+    } else {
+      alert("API did not respond as expected");
+    }
+  }
+};
+
+/****** Search Calls ******/
 //Calls NASA's Search API
-function callSearchAPI(q){
-  request.open("GET",buildSearchRequest());
-  request.send();
+function callSearchAPI(){
+  searchRequest.open("GET",buildSearchRequest());
+  searchRequest.send();
 }
 
 //Creates the Address for API call
@@ -57,26 +75,31 @@ function buildSearchRequest(){
   return rootAddress+searchExt+ext.join("&");;
 }
 
-/************* Procesing API Response's *************/
-//Creating a response object
-let response;
-
-//Converting responseText to JSON
-function processResponse(responseText){
-  response = JSON.parse(responseText);
-  console.log(response);
-
-  showResultsCount();
-
-  clearGallery();
-  displayImages();
+/****** Asset Calls ******/
+function callAssetAPI(nasa_id){
+  assetRequest.open("GET",rootAddress+assetExt+nasa_id);
+  assetRequest.send();
 }
 
-function showResultsCount(){
+/************* Procesing API Response's *************/
+
+/****** Search Response ******/
+function processSearchResponse(responseText){
+  let searchResponse; //Response object for search request
+  searchResponse = JSON.parse(responseText);
+
+  showResultsCount(searchResponse);
+  clearGallery();
+  displayImages(searchResponse);
+}
+
+//Prints the number of search results
+function showResultsCount(response){
   let resultsCount = document.getElementById("resultsCount");
   resultsCount.textContent = response.collection.metadata["total_hits"] + " search results.";
 }
 
+//Clears images from the gallery
 function clearGallery(){
   let gallery = document.getElementById("gallery");
   while(gallery.firstChild){
@@ -84,12 +107,35 @@ function clearGallery(){
   }
 }
 
-function displayImages(){
+//Adds the first 100 images from the search to the gallery
+function displayImages(response){
   let gallery = document.getElementById("gallery");
-  response.collection.items.forEach(function(elem){
+  response.collection.items.forEach(function(item){
     let img = new Image();
-    img.src = elem.links[0]["href"];
-    img.className = "lozad rounded img_fluid";
-    gallery.appendChild(img);
+    img.src = item.links[0]["href"];
+    img.className = "lozad img-thumbnail";
+    gallery.appendChild(buildThumbnail(img));
   });
+}
+
+function buildThumbnail(img){
+  let col = document.createElement("div");
+  let thumbnail = document.createElement("div");
+  col.className = "col-md-4";
+  thumbnail.className = "thumbnail";
+  thumbnail.appendChild(img);
+  col.appendChild(thumbnail);
+  return col;
+}
+
+//Get assets for item in response
+function getItemAssets(item){
+  callAssetAPI(item.data[0]["nasa_id"]);
+}
+
+/****** Asset Response ******/
+let assetResponse; //Response Object for asset request
+function processAssetResponse(responseText){
+  assetResponse = JSON.parse(responseText);
+  console.log(assetResponse);
 }
