@@ -107,15 +107,15 @@ function clearGallery(){
   }
 }
 
-//Adds the first 100 images from the search to the gallery
+//Creates the structure and image instances for the gallery
 function displayImages(response){
-  let numOfCols = 3; //Determines the number of columns create, factor of 12
+  let numOfCols = 4; //Determines the MAX number of columns create, factor of 12
 
   //Creating columns for adding the images
   let cols = [];
   for(i=0; i<numOfCols; i++){
     let col = document.createElement("div");
-    col.className = "col-md";
+    col.className = "col-md-3 col-xs-12"; //requires manual edit for bootstrap grid layout
     document.getElementById("gallery").appendChild(col);
     cols[cols.length]=col;
   }
