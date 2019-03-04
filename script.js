@@ -109,23 +109,42 @@ function clearGallery(){
 
 //Adds the first 100 images from the search to the gallery
 function displayImages(response){
-  let gallery = document.getElementById("gallery");
+  let numOfCols = 3; //Determines the number of columns create, factor of 12
+
+  //Creating columns for adding the images
+  let cols = [];
+  for(i=0; i<numOfCols; i++){
+    let col = document.createElement("div");
+    col.className = "col-md";
+    document.getElementById("gallery").appendChild(col);
+    cols[cols.length]=col;
+  }
+
+  //Counter for dividing images amoungst columns
+  let counter = 0;
+
+  //Iterating through images
   response.collection.items.forEach(function(item){
+    //Creating the image instance
     let img = new Image();
     img.src = item.links[0]["href"];
     img.className = "lozad img-thumbnail";
-    gallery.appendChild(buildThumbnail(img));
+
+    //Appending to alternating columns
+    cols[counter%numOfCols].appendChild(buildThumbnail(img)); //builds thumbnail
+    counter++;
   });
 }
 
+//Constructs div stack for image thumbnails
 function buildThumbnail(img){
-  let col = document.createElement("div");
+  //let col = document.createElement("div");
   let thumbnail = document.createElement("div");
-  col.className = "col-md-4";
+  //col.className = "col-md-4";
   thumbnail.className = "thumbnail";
   thumbnail.appendChild(img);
-  col.appendChild(thumbnail);
-  return col;
+  //col.appendChild(thumbnail);
+  return thumbnail;
 }
 
 //Get assets for item in response
