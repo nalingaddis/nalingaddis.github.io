@@ -11,6 +11,13 @@ inputFields.forEach(function(elem){
   });
 });
 
+/************* Loading Lozad Module  *************/
+/*** Lozad used for lazy loading of the images ***/
+var lozad = require("lozad");
+const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();
+
+
 /************* Making API Calls *************/
 //NASA's API addresses
 const rootAddress = "https://images-api.nasa.gov"
