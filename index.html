@@ -5,13 +5,15 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Linking main stylesheet -->
   <link rel="stylesheet" href="style.css">
+  <!-- Loading Lozad Module Via CDN -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 
   <title>
     NASA Search
   </title>
 
   <head>
-  <h1>Search for NASA Images</h1>
+    <h1>Search for NASA Images</h1>
   </head>
 
   <!-- Defining Area for Search-->
@@ -57,10 +59,15 @@
   <div>
 
   <!-- Create Area to View Results-->
-  <div class="imagePane">
+  <div>
     <p id="resultsCount"></p>
-     <div id="imageGrid" class="imageGrid">
-     </div>
+    
+    <!-- BootStrap Container for the images-->
+    <div class="container">
+      <div id="gallery" class="row">
+          <!--img class="lozad rounded img_fluid" data-src="apple.jpeg"/-->
+      </div>
+    </div>
   </div>
 
   <!-- Linking JS -->

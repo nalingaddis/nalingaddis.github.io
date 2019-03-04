@@ -11,9 +11,7 @@ inputFields.forEach(function(elem){
   });
 });
 
-/************* Loading Lozad Module  *************/
-/*** Lozad used for lazy loading of the images ***/
-var lozad = require("lozad");
+/************* Instantiating Lozad Module  *************/
 const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
 
@@ -69,9 +67,19 @@ function processResponse(responseText){
   console.log(response);
 
   showResultsCount();
+  displayImages();
 }
 
 function showResultsCount(){
   let resultsCount = document.getElementById("resultsCount");
   resultsCount.textContent = response.collection.metadata["total_hits"] + " search results.";
+}
+
+function displayImages(){
+  let gallery = document.getElementById("gallery");
+  response.collection.items.forEach(function(elem){
+    let img = new Image();
+    img.src = elem.links[0]["href"];
+    gallery.appendChild(img);
+  });
 }
