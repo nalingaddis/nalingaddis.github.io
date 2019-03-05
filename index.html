@@ -12,6 +12,7 @@
   <title> NASA Image Search </title>
 
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <h1>Search for NASA Images</h1>
   </head>
 
@@ -20,13 +21,13 @@
     <!-- Basic Search -->
     <section class="container-fluid">
       <div class="row no-gutters justify-content-center">
-        <div class="col-1">
+        <div class="col-sm-2 col-md-1">
           <button id="searchButton" onclick="callSearchAPI()">Search</button>
         </div>
-        <div class="col-6">
+        <div class="col-sm-8 col-md-6">
           <input id="q" class="inputField" type="text" placeholder="Explore...">
         </div>
-        <div class="col-1">
+        <div class="col-sm-2 col-md-1">
           <button onclick="showAdvanced()">Advanced</button>
         </div>
       </div>
@@ -35,34 +36,34 @@
     <!-- Advanced Search -->
     <section id="advancedSearch" class="container-fluid start-hidden">
       <div class="row no-gutters justify-content-center">
-        <div class="col-2">
+        <div class="col-sm-2 col-md-2">
           <input id="description" class="inputField" type="text" placeholder="Description">
         </div>
-        <div class="col-2">
+        <div class="col-sm-2 col-md-2">
           <input id="keywords" class="inputField" type="text" placeholder="Key Words">
         </div>
-        <div class="col-2">
+        <div class="col-sm-2 col-md-2">
             <input id="title" class="inputField" type="text" placeholder="Title">
         </div>
       </div>
 
       <div class="row no-gutters justify-content-center">
-        <div class="col-3">
+        <div class="col-sm-3 col-md-3">
           <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
         </div>
-        <div class="col-3">
+        <div class="col-sm-3 col-md-3">
           <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
         </div>
       </div>
 
       <div class="row no-gutters justify-content-center">
-        <div class="col-2">
+        <div class="col-sm-2 col-md-2">
           <input id="photographer" class="inputField" type="text" placeholder="Photographer">
         </div>
-        <div class="col-2">
+        <div class="col-sm-2 col-md-2">
           <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
         </div>
-        <div class="col-2">
+        <div class="col-sm-2 col-md-2">
           <input id="center" class="inputField" type="text" placeholder="NASA Center">
         </div>
       </div>
