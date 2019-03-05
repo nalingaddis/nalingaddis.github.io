@@ -1,15 +1,31 @@
 /* Custom adjustments to Bootstraps default CSS */
-
 h1{
+  padding-bottom: 50px;
+}
+
+.top{
   text-align: center;
+  align-content: center;
+  color: #FFF8E7;
+  
+  padding-top: 20%;
+  padding-bottom: 40%;
+
+  margin-bottom: 30px;
+
+  /* Parallax Effect */
+  background-image: url("resources/hurricane.jpg");
+  
+  width:100%;
+
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 body{
   background-color: #FFF8E7; /* Cosmic Latte, the average color of the universe */
-}
-
-.searchArea{
-  align-content: center;
 }
 
 img{

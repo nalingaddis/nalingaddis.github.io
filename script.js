@@ -99,6 +99,21 @@ function processSearchResponse(responseText){
   showResultsCount(searchResponse);
   clearGallery();
   displayImages(searchResponse);
+  scrollDown(300);
+}
+
+//Scroll down to make results viewable
+function scrollDown(scrollDistance){
+  scrollDownRecu(0,scrollDistance); //Calling recursive function
+}
+
+//Recursive function for scrolling
+function scrollDownRecu(deltaScroll, scrollDistance){
+  window.scrollBy(0,1); //Scroll
+  console.log(deltaScroll);
+  if(deltaScroll < scrollDistance){ //Base case
+    scrolldelay = setTimeout(scrollDownRecu,1,deltaScroll+1,scrollDistance); //Recusive step
+  }
 }
 
 //Prints the number of search results
