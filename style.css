@@ -16,3 +16,15 @@ img{
   padding-bottom: 30px;
   width: 100%; /* Images span the whole column */
 }
+
+button{
+  width: 100%;
+}
+
+input{
+  width: 100%;
+}
+
+.start-hidden{
+  display: none;
+}

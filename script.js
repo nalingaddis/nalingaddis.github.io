@@ -2,14 +2,22 @@
 //Elements on the page
 const searchButton = document.getElementById("searchButton");
   //Array of Input Fields
-const inputFields = document.querySelectorAll(".inputField")
-
-//Allows the user to search with the "enter" key
+const inputFields = document.querySelectorAll(".inputField")  
+  //Allows the user to search with the "enter" key
 inputFields.forEach(function(elem){
   elem.addEventListener("keyup",function(event){
     if(event.keyCode === 13){searchButton.click();}
   });
 });
+  //Advanced Search Button Functionality
+function showAdvanced(){
+  let advancedSearch = document.getElementById("advancedSearch");
+  if(advancedSearch.style.display === "block"){
+    advancedSearch.style.display = "";
+  } else {
+    advancedSearch.style.display = "block";
+  }
+}
 
 /************* Instantiating Lozad Module  *************/
 const observer = lozad(); // lazy loads elements with default selector as '.lozad'

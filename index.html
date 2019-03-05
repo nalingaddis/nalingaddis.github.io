@@ -16,47 +16,56 @@
   </head>
 
   <body>
-    <!-- Defining Area for Search-->
 
-    <section class="searchArea">
-      <div class="container">
-        <div class="row">
-          <div class="column">
-            <input id="q" class="inputField" type="text" placeholder="Free Search">
-          </div>
-          <div class="column">
-            <input id="center" class="inputField" type="text" placeholder="NASA Center">
-          </div>
-          <div class="column">
-            <input id="description" class="inputField" type="text" placeholder="Description">
-          </div>
+    <!-- Basic Search -->
+    <section class="container-fluid">
+      <div class="row no-gutters justify-content-center">
+        <div class="col-1">
+          <button id="searchButton" onclick="callSearchAPI()">Search</button>
         </div>
-        
-        <div class="row">
-          <div class="column">
-            <input id="keywords" class="inputField" type="text" placeholder="Key Words">
-          </div>
-          <div class="column">
-            <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
-          </div>
-          <div class="column">
-            <input id="photographer" class="inputField" type="text" placeholder="Photographer">
-          </div>
+        <div class="col-6">
+          <input id="q" class="inputField" type="text" placeholder="Explore...">
         </div>
-
-        <div class="row">
-          <div class="column">
-            <input id="title" class="inputField" type="text" placeholder="Title">
-          </div>
-          <div class="column">
-            <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
-          </div>
-          <div class="column">
-            <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
-          </div>
-        </div> 
+        <div class="col-1">
+          <button onclick="showAdvanced()">Advanced</button>
+        </div>
       </div>
-      <button id="searchButton" onclick="callSearchAPI()">Search</button>
+    </section>
+
+    <!-- Advanced Search -->
+    <section id="advancedSearch" class="container-fluid start-hidden">
+      <div class="row no-gutters justify-content-center">
+        <div class="col-2">
+          <input id="description" class="inputField" type="text" placeholder="Description">
+        </div>
+        <div class="col-2">
+          <input id="keywords" class="inputField" type="text" placeholder="Key Words">
+        </div>
+        <div class="col-2">
+            <input id="title" class="inputField" type="text" placeholder="Title">
+        </div>
+      </div>
+
+      <div class="row no-gutters justify-content-center">
+        <div class="col-3">
+          <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
+        </div>
+        <div class="col-3">
+          <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
+        </div>
+      </div>
+
+      <div class="row no-gutters justify-content-center">
+        <div class="col-2">
+          <input id="photographer" class="inputField" type="text" placeholder="Photographer">
+        </div>
+        <div class="col-2">
+          <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
+        </div>
+        <div class="col-2">
+          <input id="center" class="inputField" type="text" placeholder="NASA Center">
+        </div>
+      </div>
     </section>
 
     <p id="resultsCount"></p>
