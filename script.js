@@ -123,7 +123,7 @@ function displayImages(response){
   let cols = [];
   for(i=0; i<numOfCols; i++){
     let col = document.createElement("div");
-    col.className = "col-md-3 col-xs-12"; //requires manual edit for bootstrap grid layout
+    col.className = "col-md-3 col-sm-12"; //requires manual edit for bootstrap grid layout
     document.getElementById("gallery").appendChild(col);
     cols[cols.length]=col;
   }
