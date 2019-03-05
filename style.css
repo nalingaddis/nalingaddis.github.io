@@ -16,13 +16,19 @@ h1{
   /* Parallax Effect */
   background-image: url("resources/hurricane.jpg");
   
-  width:100%;
+  height:100%;
 
   background-attachment: fixed;
   background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* Disables Parallax Effect on Mobile */
+@media only screen and (max-device-width: 1366px) {
+  .top {
+    background-attachment: scroll;
+  }
 
 body{
   background-color: #FFF8E7; /* Cosmic Latte, the average color of the universe */
