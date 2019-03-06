@@ -24,12 +24,6 @@ h1{
   background-size: cover;
 }
 
-/* Disables Parallax Effect on Mobile */
-@media only screen and (max-device-width: 1366px) {
-  .top {
-    background-attachment: scroll;
-  }
-
 body{
   background-color: #FFF8E7; /* Cosmic Latte, the average color of the universe */
 }
