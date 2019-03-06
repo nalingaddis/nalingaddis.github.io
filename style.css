@@ -7,7 +7,7 @@ h1{
   text-align: center;
   align-content: center;
   color: #FFF8E7;
-  
+
   padding-top: 20%;
   padding-bottom: 40%;
 
@@ -15,8 +15,8 @@ h1{
 
   /* Parallax Effect */
   background-image: url("resources/hurricane.jpg");
-  
-  height:100%;
+
+  width:100%;
 
   background-attachment: fixed;
   background-position: top;
