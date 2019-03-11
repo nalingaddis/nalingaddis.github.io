@@ -138,8 +138,11 @@ function processSearchResponse(responseText){
   //Sets the next request address if it exists
   if(searchResponse.collection.links !== undefined){
     let i = 0; //temporary indexer, used to account for previous page links
-    if(searchResponse.collection.links[i].prompt == "Previous"){i++;}
-    nextHTTPRequest = searchResponse.collection.links[i].href
+    if(searchResponse.collection.links[i].prompt === "Previous"){
+      if(searchResponse.collection.links.length === 2){i++;} 
+      else{nextHTTPRequest = null; return;}
+    }
+    nextHTTPRequest = searchResponse.collection.links[i].href;
   } else {
     nextHTTPRequest = null;
   }
