@@ -19,10 +19,39 @@ function showAdvanced(){
   }
 }
 
+/************* Creating the gallery columns *************/
+let cols = []; //Array for holding the galleries columns
+const numOfCols = 4; //Determines the MAX number of columns create, NEEDS TO BE factor of 12
+
+//Creating columns for adding the images
+for(i=0; i<numOfCols; i++){
+  let col = document.createElement("div");
+  let classname = "col-sm-12 col-md-";
+  classname += (Math.ceil(12/numOfCols)).toString(); //Edits the column widths in BS Grid based on numOfCols
+  col.className = classname;
+
+  document.getElementById("gallery").appendChild(col);
+  cols[cols.length]=col;
+}
+
+/************* Onscroll Effect for Infinite Scrolling  *************/
+const loadDistFromBottom = 2000; //Distance for bottom when the next page will be loaded
+  //Disables bottom of page detection while autoscroll is active
+let isAutoScrolling = false; //Prevents bugs and excess loading
+let nextHTTPRequest = null;
+
+window.onscroll = function(event){
+  //If the user is near the bottom of the page, and it is not autoscrolling 
+  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - loadDistFromBottom 
+      && !isAutoScrolling && nextHTTPRequest != null){
+      callSearchAPI(nextHTTPRequest);
+      console.log("scroll detected");
+  }
+};
+
 /************* Instantiating Lozad Module  *************/
 const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
-
 
 /************* API Call Handling *************/
 //NASA's API addresses
@@ -36,12 +65,12 @@ const assetRequest = new XMLHttpRequest();
 
 //Behavior for Search Response
 searchRequest.onreadystatechange = function(){
-  if(searchRequest.readyState == 4){
-    if(searchRequest.status == 200){
+  if(searchRequest.readyState === 4){
+    if(searchRequest.status === 200){
        processSearchResponse(searchRequest.responseText);
-    } else if(searchRequest.status == 400){
+    } else if(searchRequest.status === 400){
       alert("Bad Request");
-    } else if(searchRequest.state == 404){
+    } else if(searchRequest.state === 404){
       alert("Requested resource doesn't exist");
     } else {
       alert("API did not respond as expected");
@@ -51,12 +80,12 @@ searchRequest.onreadystatechange = function(){
 
 //Behavior for Asset Request
 assetRequest.onreadystatechange = function(){
-  if(assetRequest.readyState == 4){
-    if(assetRequest.status == 200){
+  if(assetRequest.readyState === 4){
+    if(assetRequest.status === 200){
        processAssetResponse(assetRequest.responseText);
-    } else if(assetRequest.status == 400){
+    } else if(assetRequest.status === 400){
       alert("Bad Request");
-    } else if(assetRequest.state == 404){
+    } else if(assetRequest.state === 404){
       alert("Requested resource doesn't exist");
     } else {
       alert("API did not respond as expected");
@@ -66,8 +95,8 @@ assetRequest.onreadystatechange = function(){
 
 /****** Search Calls ******/
 //Calls NASA's Search API
-function callSearchAPI(){
-  searchRequest.open("GET",buildSearchRequest());
+function callSearchAPI(address=buildSearchRequest()){
+  searchRequest.open("GET",address);
   searchRequest.send();
 }
 
@@ -95,19 +124,33 @@ function callAssetAPI(nasa_id){
 function processSearchResponse(responseText){
   let searchResponse; //Response object for search request
   searchResponse = JSON.parse(responseText);
+  
+  console.log(searchResponse);
 
-  showResultsCount(searchResponse);
-  clearGallery();
-  displayImages(searchResponse);
+  showResultsCount(searchResponse);  //Displays the number of search results
+
+  let address = searchResponse.collection.href; //The address of the request
+  let isNewSearch = (address.search("page=") === -1); //If the request is the first page, then it is a new search
+  if(isNewSearch){clearGallery()} //Clears the image gallery if this was a new search
+  
+  displayImages(searchResponse);  //Displays the new images
+
+  //Sets the next request address if it exists
+  if(searchResponse.collection.links !== undefined){
+    let i = 0; //temporary indexer, used to account for previous page links
+    if(searchResponse.collection.links[i].prompt == "Previous"){i++;}
+    nextHTTPRequest = searchResponse.collection.links[i].href
+  } else {
+    nextHTTPRequest = null;
+  }
 
   //Scrolling down is not needed on mobile, and looks clunky
-  if(screen.width > 720){
-    scrollDown(300);
-  }
+  if(screen.width > 720 && isNewSearch){scrollDown(300);} //Only scrolls on new search
 }
 
 //Scroll down to make results viewable
 function scrollDown(scrollDistance){
+  isAutoScrolling = true; //Disables infinite scroll
   scrollDownRecu(0,scrollDistance); //Calling recursive function
 }
 
@@ -116,6 +159,8 @@ function scrollDownRecu(deltaScroll, scrollDistance){
   window.scrollBy(0,1); //Scroll
   if(deltaScroll < scrollDistance){ //Base case
     scrolldelay = setTimeout(scrollDownRecu,1,deltaScroll+1,scrollDistance); //Recusive step
+  } else {
+    isAutoScrolling = false; //Enables infinite scroll
   }
 }
 
@@ -125,27 +170,15 @@ function showResultsCount(response){
   resultsCount.textContent = response.collection.metadata["total_hits"] + " search results.";
 }
 
-//Clears images from the gallery
+//Clears images from the gallery, by column
 function clearGallery(){
-  let gallery = document.getElementById("gallery");
-  while(gallery.firstChild){
-    gallery.removeChild(gallery.firstChild);
-  }
+  cols.forEach(function (col){
+    while(col.firstChild){col.removeChild(col.firstChild);}
+  });
 }
 
 //Creates the structure and image instances for the gallery
 function displayImages(response){
-  let numOfCols = 4; //Determines the MAX number of columns create, factor of 12
-
-  //Creating columns for adding the images
-  let cols = [];
-  for(i=0; i<numOfCols; i++){
-    let col = document.createElement("div");
-    col.className = "col-md-3 col-sm-12"; //requires manual edit for bootstrap grid layout
-    document.getElementById("gallery").appendChild(col);
-    cols[cols.length]=col;
-  }
-
   //Counter for dividing images amoungst columns
   let counter = 0;
 
