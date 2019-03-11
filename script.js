@@ -109,7 +109,7 @@ function buildSearchRequest(){
     }
   });
   //Joins the root, search, and query
-  return rootAddress+searchExt+ext.join("&");;
+  return rootAddress+searchExt+ext.join("&");
 }
 
 /****** Asset Calls ******/
