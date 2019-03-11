@@ -99,7 +99,11 @@ function processSearchResponse(responseText){
   showResultsCount(searchResponse);
   clearGallery();
   displayImages(searchResponse);
-  scrollDown(300);
+
+  //Scrolling down is not needed on mobile, and looks clunky
+  if(screen.width > 720){
+    scrollDown(300);
+  }
 }
 
 //Scroll down to make results viewable
@@ -110,7 +114,6 @@ function scrollDown(scrollDistance){
 //Recursive function for scrolling
 function scrollDownRecu(deltaScroll, scrollDistance){
   window.scrollBy(0,1); //Scroll
-  console.log(deltaScroll);
   if(deltaScroll < scrollDistance){ //Base case
     scrolldelay = setTimeout(scrollDownRecu,1,deltaScroll+1,scrollDistance); //Recusive step
   }
