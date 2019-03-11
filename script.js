@@ -170,7 +170,7 @@ function buildThumbnail(img){
   return thumbnail;
 }
 
-//Get assets for item in response
+//Get assets for item in a search response
 function getItemAssets(item){
   callAssetAPI(item.data[0]["nasa_id"]);
 }

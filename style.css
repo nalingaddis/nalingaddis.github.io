@@ -24,6 +24,12 @@ h1{
   background-size: cover;
 }
 
+@media only screen and (max-device-width: 720px) {
+  .top {
+    background-attachment: scroll !important;
+  }
+}
+
 body{
   background-color: #FFF8E7; /* Cosmic Latte, the average color of the universe */
 }
