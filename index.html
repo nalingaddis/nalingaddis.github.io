@@ -14,8 +14,10 @@
     <title> NASA Image Search </title>
     <!-- Meta Needed for Bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- Google Raleway Font-->
+    <!-- Google Raleway Font -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway"/>
+    <!-- Light Box Module (CSS) -->
+    <link href="node_modules/lightbox2/dist/css/lightbox.css" rel="stylesheet">
   </head>
 
   <body>
@@ -74,7 +76,7 @@
       <p id="resultsCount"></p>
     </section>
     
-    <!-- Create Area to View Results-->
+    <!--  Gallery for display image thumbnails -->
     <section>
       <div class="container-fluid">
         <div id="gallery" class="row ">
@@ -83,7 +85,11 @@
       </div>
     </section>
 
+    <!-- Light box model for displaying metadata -->
+
     <!-- Linking JS -->
     <script type="text/javascript" src="script.js"></script>
+    <!-- Linking Lightbox JS -->
+    <script type="text/javascript" src="node_modules/lightbox2/dist/js/lightbox.js"></script>
   </body>
 </html>
