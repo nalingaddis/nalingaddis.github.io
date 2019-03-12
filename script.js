@@ -199,6 +199,10 @@ function displayImages(response){
     anc.setAttribute("href", item.links[0]["href"]); //set up for the lightbox
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
+    //Building Caption from Meta Data
+    let caption = "  " + item.data[0]["title"] + " taken at " + item.data[0]["center"] + " on " + item.data[0]["date_created"].substring(0,10);
+    anc.setAttribute("data-title", caption);
+
     //Appending to alternating columns
     cols[counter%numOfCols].appendChild(anc);
     counter++;
