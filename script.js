@@ -210,7 +210,7 @@ function displayImages(response){
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
     //Building Caption from Meta Data
-    let caption = '"' + item.data[0]["title"] + '" taken at ' + item.data[0]["center"] + " on " + item.data[0]["date_created"].substring(0,10);
+    let caption = '"' + item.data[0]["title"] + '" taken at ' + item.data[0]["center"] + " on " + item.data[0]["date_created"].substring(0,10) + " - " + item.data[0]["description"];
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
