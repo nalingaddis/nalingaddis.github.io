@@ -20,7 +20,7 @@ function showAdvanced(){
 }
   //Generate and Example Search
 function makeExample(){
-  
+
 }
 
 /************* Creating the gallery columns *************/
@@ -191,12 +191,6 @@ function displayImages(response){
 
   //Iterating through images
   response.collection.items.forEach(function(item){
-    
-    /*Creating the image instance
-    let img = new Image();
-    img.src = item.links[0]["href"];
-    img.className = "lozad";*/
-    
     //Creating the anchor containing the image
     let anc = document.createElement("a");
     anc.innerHTML = '<img class="lozad" src=' + item.links[0]["href"]+'>'; //sets img source equal to the image address
