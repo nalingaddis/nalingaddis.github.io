@@ -187,26 +187,22 @@ function displayImages(response){
 
   //Iterating through images
   response.collection.items.forEach(function(item){
-    //Creating the image instance
+    
+    /*Creating the image instance
     let img = new Image();
     img.src = item.links[0]["href"];
-    img.className = "lozad";
+    img.className = "lozad";*/
+    
+    //Creating the anchor containing the image
+    let anc = document.createElement("a");
+    anc.innerHTML = '<img class="lozad" src=' + item.links[0]["href"]+'>'; //sets img source equal to the image address
+    anc.setAttribute("href", item.links[0]["href"]); //set up for the lightbox
+    anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
     //Appending to alternating columns
-    cols[counter%numOfCols].appendChild(buildThumbnail(img)); //builds thumbnail
+    cols[counter%numOfCols].appendChild(anc);
     counter++;
   });
-}
-
-//Constructs div stack for image thumbnails
-function buildThumbnail(img){
-  //let col = document.createElement("div");
-  let thumbnail = document.createElement("div");
-  //col.className = "col-md-4";
-  thumbnail.className = "thumbnail";
-  thumbnail.appendChild(img);
-  //col.appendChild(thumbnail);
-  return thumbnail;
 }
 
 //Get assets for item in a search response
