@@ -9,10 +9,10 @@ h1{
 .button{
   font-family: Raleway;
   background-color: #0077be;
-  border: none;
+  border: 1px solid #FFF8E7;
   color: #FFF8E7;
   height: 100%;
-  font-size: 22px;
+  font-size: 20px;
   border-radius: 4px;
   padding: 5px;
 }

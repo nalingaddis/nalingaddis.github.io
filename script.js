@@ -18,6 +18,10 @@ function showAdvanced(){
     advancedSearch.style.display = "block";
   }
 }
+  //Generate and Example Search
+function makeExample(){
+  
+}
 
 /************* Creating the gallery columns *************/
 let cols = []; //Array for holding the galleries columns
