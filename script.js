@@ -18,9 +18,21 @@ function showAdvanced(){
     advancedSearch.style.display = "block";
   }
 }
-  //Generate and Example Search
+  //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
+let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
+"Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
+"comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
+"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliocentric","heliopause",
+"heliosphere","hydrocarbon","hydrogen","image","infrared","interstellar","Jupiter","life","light","light-year",
+"Little Dipper","local group","luminosity","magnetosphere","magnitude","Mars","mass","matter","Mercury","meteor",
+"Milky Way","molecule","moon","NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
+"parallax","photometer","photosphere","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
+"reflection","rocket","rotate","satellite","Saturn","shine","solar system","space","Space Shuttle","spectrograph","spectrum",
+"spiral arms","star","starlight","stellar","Sun","sunspot","supergiant","supernova","telescope","temperature","theory",
+"transparent","ultraviolet","universe","Ursa Major","Ursa Minor","Venus","visible light","water","wavelength","waves",
+"Whirlpool Galaxy","white dwarf","x-ray"]
 function makeExample(){
-
+  inputFields[0].value = examples[Math.floor(Math.random() * examples.length)];
 }
 
 /************* Creating the gallery columns *************/
@@ -198,7 +210,7 @@ function displayImages(response){
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
     //Building Caption from Meta Data
-    let caption = "  " + item.data[0]["title"] + " taken at " + item.data[0]["center"] + " on " + item.data[0]["date_created"].substring(0,10);
+    let caption = '"' + item.data[0]["title"] + '" taken at ' + item.data[0]["center"] + " on " + item.data[0]["date_created"].substring(0,10);
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
