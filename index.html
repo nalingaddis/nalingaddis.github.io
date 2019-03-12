@@ -14,6 +14,8 @@
     <title> NASA Image Search </title>
     <!-- Meta Needed for Bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Google Raleway Font-->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway"/>
   </head>
 
   <body>
@@ -22,14 +24,14 @@
       <!-- Basic Search -->
       <section class="container-fluid">
         <div class="row no-gutters justify-content-center">
-            <div class="col-sm-2 col-md-1">
-                <button onclick="showAdvanced()">Advanced</button>
+            <div class="col-sm-2 col-md-2">
+                <button onclick="showAdvanced()" class="button">Advanced</button>
             </div>
           <div class="col-sm-8 col-md-6">
             <input id="q" class="inputField" type="text" placeholder="Explore...">
           </div>
-          <div class="col-sm-2 col-md-1">
-              <button id="searchButton" onclick="callSearchAPI()">Search</button>
+          <div class="col-sm-2 col-md-2">
+              <button id="searchButton" onclick="callSearchAPI()" class="button">Search</button>
           </div>
         </div>
       </section>    
@@ -37,34 +39,34 @@
       <!-- Advanced Search -->
       <section id="advancedSearch" class="container-fluid start-hidden">
         <div class="row no-gutters justify-content-center">
-          <div class="col-sm-2 col-md-2">
+          <div class="col-sm-3 col-md-2">
             <input id="description" class="inputField" type="text" placeholder="Description">
-          </div>
-          <div class="col-sm-2 col-md-2">
-            <input id="keywords" class="inputField" type="text" placeholder="Key Words">
           </div>
           <div class="col-sm-2 col-md-2">
               <input id="title" class="inputField" type="text" placeholder="Title">
           </div>
+          <div class="col-sm-3 col-md-2">
+            <input id="keywords" class="inputField" type="text" placeholder="Key Words">
+          </div>
         </div>
 
         <div class="row no-gutters justify-content-center">
-          <div class="col-sm-3 col-md-3">
+          <div class="col-sm-4 col-md-3">
             <input id="year_start" class="inputField" type="text" placeholder="Start Year (YYYY)">
           </div>
-          <div class="col-sm-3 col-md-3">
+          <div class="col-sm-4 col-md-3">
             <input id="year_end" class="inputField" type="text" placeholder="End Year (YYYY)">
           </div>
         </div>
 
         <div class="row no-gutters justify-content-center">
-          <div class="col-sm-2 col-md-2">
+          <div class="col-sm-3 col-md-2">
             <input id="photographer" class="inputField" type="text" placeholder="Photographer">
           </div>
           <div class="col-sm-2 col-md-2">
-            <input id="nasa_id" class="inputField" type="text" placeholder="NASA Media ID">
+            <input id="nasa_id" class="inputField" type="text" placeholder="Media ID">
           </div>
-          <div class="col-sm-2 col-md-2">
+          <div class="col-sm-3 col-md-2">
             <input id="center" class="inputField" type="text" placeholder="NASA Center">
           </div>
         </div>

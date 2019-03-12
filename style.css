@@ -1,6 +1,29 @@
 /* Custom adjustments to Bootstraps default CSS */
+/* Color theme based on Cosmic Latte (#FFF8E7), the average color of the universe */
+
 h1{
+  font-family: Raleway;
   padding-bottom: 50px;
+}
+
+.button{
+  font-family: Raleway;
+  background-color: #0077be;
+  border: none;
+  color: #FFF8E7;
+  height: 100%;
+  font-size: 22px;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.inputField{
+  font-family: Raleway;
+  border: 2px solid #0077be;
+  height: 100%;
+  font-size: 18px;
+  border-radius: 4px;
+  padding: 5px;
 }
 
 .top{
@@ -8,7 +31,7 @@ h1{
   align-content: center;
   color: #FFF8E7;
 
-  padding-top: 20%;
+  padding-top: 15%;
   padding-bottom: 20%;
 
   margin-bottom: 30px;
@@ -31,7 +54,7 @@ h1{
 }
 
 body{
-  background-color: #FFF8E7; /* Cosmic Latte, the average color of the universe */
+  background-color: #FFF8E7; 
 }
 
 img{
