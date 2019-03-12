@@ -26,9 +26,9 @@
       <!-- Basic Search -->
       <section class="container-fluid">
         <div class="row no-gutters justify-content-center">
-            <div class="col-sm-2 col-md-2">
-                <button onclick="showAdvanced()" class="button">Advanced</button>
-            </div>
+          <div class="col-sm-2 col-md-2">
+              <button id="exampleButton" onclick="makeExample()" class="button">Example</button>
+          </div>
           <div class="col-sm-6 col-md-4">
             <input id="q" class="inputField" type="text" placeholder="Explore...">
           </div>
@@ -36,7 +36,7 @@
               <button id="searchButton" onclick="callSearchAPI()" class="button">Search</button>
           </div>
           <div class="col-sm-2 col-md-2">
-              <button id="exampleButton" onclick="makeExample()" class="button">Example</button>
+            <button onclick="showAdvanced()" class="button">Advanced</button>
           </div>
         </div>
       </section>    
