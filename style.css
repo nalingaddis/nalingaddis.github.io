@@ -6,6 +6,15 @@ h1{
   padding-bottom: 50px;
 }
 
+.sticky{
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  background-color: #2F4858;
+}
+
 .button{
   font-family: Raleway;
   background-color: #0077be;
@@ -15,6 +24,10 @@ h1{
   font-size: 20px;
   border-radius: 4px;
   padding: 5px;
+}
+
+.button:focus{
+  outline: none;
 }
 
 .inputField{

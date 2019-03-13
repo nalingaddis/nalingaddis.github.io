@@ -21,10 +21,10 @@
   </head>
 
   <body>
-    <section class="top">
+    <section class="top" id="top">
       <h1>Explore NASA's Image Library</h1>
       <!-- Basic Search -->
-      <section class="container-fluid">
+      <section class="container-fluid" id="basic-search">
         <div class="row no-gutters justify-content-center">
           <div class="col-sm-2 col-md-2">
               <button id="exampleButton" onclick="makeExample()" class="button">Try Me!</button>
@@ -33,10 +33,10 @@
             <input id="q" class="inputField" type="text" placeholder="Explore...">
           </div>
           <div class="col-sm-2 col-md-2">
-              <button id="searchButton" onclick="callSearchAPI()" class="button">Search</button>
+              <button id="searchButton" onclick="search()" class="button">Search</button>
           </div>
           <div class="col-sm-2 col-md-2">
-            <button onclick="showAdvanced()" class="button">Advanced</button>
+            <button onclick="showAdvanced()" class="button">More</button>
           </div>
         </div>
       </section>    
@@ -87,8 +87,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Light box model for displaying metadata -->
 
     <!-- Linking JS -->
     <script type="text/javascript" src="script.js"></script>

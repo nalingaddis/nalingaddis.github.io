@@ -9,11 +9,19 @@ inputFields.forEach(function(elem){
     if(event.keyCode === 13){searchButton.click();}
   });
 });
+  //Basic Search Button
+function search(){
+  document.body.scrollTop = 0; //Safari
+  document.documentElement.scrollTop = 0; //Everything else
+  callSearchAPI();
+}
   //Advanced Search Button Functionality
 function showAdvanced(){
+  document.body.scrollTop = 0; //Safari
+  document.documentElement.scrollTop = 0; //Everything else
   let advancedSearch = document.getElementById("advancedSearch");
   if(advancedSearch.style.display === "block"){
-    advancedSearch.style.display = "";
+    advancedSearch.style.display = "none";
   } else {
     advancedSearch.style.display = "block";
   }
@@ -22,7 +30,7 @@ function showAdvanced(){
 let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
 "Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
-"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliocentric","heliopause",
+"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliopause",
 "heliosphere","hydrocarbon","hydrogen","image","infrared","interstellar","Jupiter","life","light","light-year",
 "Little Dipper","local group","luminosity","magnetosphere","magnitude","Mars","mass","matter","Mercury","meteor",
 "Milky Way","molecule","moon","NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
@@ -62,6 +70,15 @@ window.onscroll = function(event){
       && !isAutoScrolling && nextHTTPRequest != null){
       callSearchAPI(nextHTTPRequest);
       console.log("scroll detected");
+  }
+
+  //Floating Search Header
+  let header = document.getElementById("basic-search");
+  let top = document.getElementById("top");
+  if(window.pageYOffset > top.offsetHeight + top.offsetTop){
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
   }
 };
 
