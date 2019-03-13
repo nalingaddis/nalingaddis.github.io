@@ -205,12 +205,15 @@ function displayImages(response){
   response.collection.items.forEach(function(item){
     //Creating the anchor containing the image
     let anc = document.createElement("a");
-    anc.innerHTML = '<img class="lozad" src=' + item.links[0]["href"]+'>'; //sets img source equal to the image address
-    anc.setAttribute("href", item.links[0]["href"]); //set up for the lightbox
+    anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt='+item.data[0].title+'/>'; //sets img source equal to the image address
+    anc.setAttribute("href", item.links[0].href); //set up for the lightbox
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
     //Building Caption from Meta Data
-    let caption = '"' + item.data[0]["title"] + '" taken at ' + item.data[0]["center"] + " on " + item.data[0]["date_created"].substring(0,10) + " - " + item.data[0]["description"];
+      // "title" taken at "center" on "date"
+    let caption = '"' + item.data[0].title + '" taken at ' + item.data[0].center + " on " + item.data[0].date_created.substring(0,10);
+    caption += '<a href="'+item.links[0].href.replace("~thumb", "~orig")+'" target="_black"> Click to Full Size Image </a>';
+    caption += " - " + item.data[0].description; //adding description
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
