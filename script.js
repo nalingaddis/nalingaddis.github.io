@@ -222,7 +222,8 @@ function displayImages(response){
   response.collection.items.forEach(function(item){
     //Creating the anchor containing the image
     let anc = document.createElement("a");
-    anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt='+item.data[0].title+'/>'; //sets img source equal to the image address
+    //sets img source equal to the image address
+    anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt='+item.data[0].title+'/>';
     anc.setAttribute("href", item.links[0].href); //set up for the lightbox
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
@@ -230,7 +231,9 @@ function displayImages(response){
       // "title" taken at "center" on "date"
     let caption = '"' + item.data[0].title + '" taken at ' + item.data[0].center + " on " + item.data[0].date_created.substring(0,10);
     caption += '<a href="'+item.links[0].href.replace("~thumb", "~orig")+'" target="_black"> Click to Full Size Image </a>';
-    caption += " - " + item.data[0].description; //adding description
+    let description = item.data[0].description;
+    description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
+    caption += " - " + description; //adding description
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
