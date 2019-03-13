@@ -17,8 +17,8 @@ function search(){
 }
   //Advanced Search Button Functionality
 function showAdvanced(){
-  document.body.scrollTop = 0; //Safari
-  document.documentElement.scrollTop = 0; //Everything else
+  //document.body.scrollTop = 0; //Safari
+  //document.documentElement.scrollTop = 0; //Everything else
   let advancedSearch = document.getElementById("advancedSearch");
   if(advancedSearch.style.display === "block"){
     advancedSearch.style.display = "none";
@@ -30,8 +30,7 @@ function showAdvanced(){
 let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
 "Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
-"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliopause",
-"heliosphere","hydrocarbon","hydrogen","image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude","Mars","mass","matter","Mercury","meteor",
+"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen","image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude","Mars","mass","matter","Mercury","meteor",
 "Milky Way","molecule","moon","NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
 "parallax","photometer","photosphere","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
 "reflection","rocket","rotate","satellite","Saturn","shine","solar system","space","Space Shuttle","spectrograph","spectrum",
@@ -72,7 +71,7 @@ window.onscroll = function(event){
   }
 
   //Floating Search Header
-  let header = document.getElementById("basic-search");
+  let header = document.getElementById("search-area");
   let top = document.getElementById("top");
   if(window.pageYOffset > top.offsetHeight + top.offsetTop){
     header.classList.add("sticky");
@@ -228,11 +227,22 @@ function displayImages(response){
 
     //Building Caption from Meta Data
       // "title" taken at "center" on "date"
+    /*
     let caption = '"' + item.data[0].title + '" taken at ' + item.data[0].center + " on " + item.data[0].date_created.substring(0,10);
     caption += '<a href="'+item.links[0].href.replace("~thumb", "~orig")+'" target="_black"> Click to Full Size Image </a>';
     let description = item.data[0].description;
     description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
     caption += " - " + description; //adding description
+    */
+
+    let caption = '<div> <u>Title</u> - "' + item.data[0].title + '"</div>';
+    caption += '<div> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
+    caption += '<div> <u>Center</u> - ' + item.data[0].center + '</div>';
+    let description = item.data[0].description;
+    description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
+    caption += '<div><u>Description</u></div>';
+    caption += '<div>'+description+'</div>'
+
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
