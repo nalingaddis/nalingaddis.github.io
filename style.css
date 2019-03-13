@@ -11,7 +11,7 @@ h1{
   top: 0;
   z-index: 1;
   padding-top: 20px;
-  padding-bottom: 15px;
+  width: 100%;
   background-color: #2F4858;
 }
 
@@ -19,8 +19,8 @@ h1{
   position: fixed;
   bottom: 0;
   z-index: 1;
-  padding-top: 20px;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   background-color: #FFF8E7;
 }
 
@@ -33,9 +33,14 @@ h1{
   font-size: 20px;
   border-radius: 4px;
   padding: 5px;
+  width: 100%;
 }
 
 .button:focus{
+  outline: none;
+}
+
+.inputField:focus{
   outline: none;
 }
 
@@ -88,9 +93,6 @@ img:hover{
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); /*shadow hover*/
 }
 
-button{
-  width: 100%;
-}
 
 input{
   width: 100%;

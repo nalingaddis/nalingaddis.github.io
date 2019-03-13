@@ -30,19 +30,22 @@
       <h1>Explore NASA's Image Library</h1>
       <section class="container=fluid" id="search-area">
         <!-- Basic Search -->
-        <section class="container-fluid" id="basic-search">
+        <section class="container-fluid">
           <div class="row no-gutters justify-content-center">
+            <div class="col-sm-2 col-md-2">
+              <button onclick="showAdvanced()" class="button">More</button>
+            </div>
             <div class="col-sm-2 col-md-2">
                 <button id="exampleButton" onclick="makeExample()" class="button">Try Me!</button>
             </div>
-            <div class="col-sm-6 col-md-4">
+            <div class="col-sm-4 col-md-4">
               <input id="q" class="inputField" type="text" placeholder="Explore...">
             </div>
             <div class="col-sm-2 col-md-2">
                 <button id="searchButton" onclick="search()" class="button">Search</button>
             </div>
             <div class="col-sm-2 col-md-2">
-              <button onclick="showAdvanced()" class="button">More</button>
+              <button onclick="showFavorites()" class="button">Favorites</button>
             </div>
           </div>
         </section>    
@@ -85,12 +88,18 @@
         <p id="resultsCount"></p>
       </section>
     </section>
+
     <!--  Gallery for display image thumbnails -->
-    <section>
+    <section id="gallery-section">
       <div class="container-fluid">
-        <div id="gallery" class="row ">
-          
-        </div>
+          <div id="gallery" class="row"></div>
+      </div>
+    </section>
+
+    <!-- Favorites -->
+    <section id="favorites-section">
+      <div class="container-fluid">
+        <div id="favorites" class="row"></div>
       </div>
     </section>
 

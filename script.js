@@ -17,13 +17,39 @@ function search(){
 }
   //Advanced Search Button Functionality
 function showAdvanced(){
-  //document.body.scrollTop = 0; //Safari
-  //document.documentElement.scrollTop = 0; //Everything else
   let advancedSearch = document.getElementById("advancedSearch");
   if(advancedSearch.style.display === "block"){
     advancedSearch.style.display = "none";
   } else {
     advancedSearch.style.display = "block";
+  }
+}
+
+/* See Setion on Infinite Scrolling */
+let blockScrolling = false; //Prevents bugs and excess loading
+
+  //Establishing for Future Reference
+let favorites = document.getElementById("favorites");
+let gallery = document.getElementById("gallery");
+
+  //Favorites Button Functionality
+let favSection = document.getElementById("favorites-section");
+let galSection = document.getElementById("gallery-section");
+
+favSection.style.display = "none"; //Hides favorites initially 
+
+//Changing the visibility of both
+function showFavorites(){
+  document.body.scrollTop = 0; //Safari
+  document.documentElement.scrollTop = 0; //Everything else
+  if(favSection.style.display === "none"){
+    galSection.style.display = "none";
+    favSection.style.display = "block";
+    blockScrolling = true;
+  } else {
+    galSection.style.display = "block";
+    favSection.style.display = "none";
+    blockScrolling = false;
   }
 }
   //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
@@ -35,37 +61,37 @@ let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","
 "parallax","photometer","photosphere","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
 "reflection","rocket","rotate","satellite","Saturn","shine","solar system","space","Space Shuttle","spectrograph","spectrum",
 "spiral arms","star","starlight","stellar","Sun","sunspot","supergiant","supernova","telescope","temperature","theory",
-"transparent","ultraviolet","universe","Ursa Major","Ursa Minor","Venus","visible light","water","wavelength","waves",
+"transparent","ultraviolet","universe","Ursa Major","Venus","visible light","water","wavelength","waves",
 "Whirlpool Galaxy","white dwarf","x-ray"]
 function makeExample(){
   inputFields[0].value = examples[Math.floor(Math.random() * examples.length)];
 }
 
 /************* Creating the gallery columns *************/
-let cols = []; //Array for holding the galleries columns
 const numOfCols = 4; //Determines the MAX number of columns create, NEEDS TO BE factor of 12
+let cols = []; //Array for holding the galleries columns
 
-//Creating columns for adding the images
+//Creating columns for gallery images
 for(i=0; i<numOfCols; i++){
   let col = document.createElement("div");
   let classname = "col-sm-12 col-md-";
   classname += (Math.ceil(12/numOfCols)).toString(); //Edits the column widths in BS Grid based on numOfCols
   col.className = classname;
 
-  document.getElementById("gallery").appendChild(col);
+  gallery.appendChild(col);
   cols[cols.length]=col;
 }
 
 /************* Onscroll Effect for Infinite Scrolling  *************/
 const loadDistFromBottom = 2000; //Distance for bottom when the next page will be loaded
   //Disables bottom of page detection while autoscroll is active
-let isAutoScrolling = false; //Prevents bugs and excess loading
+
 let nextHTTPRequest = null;
 
 window.onscroll = function(event){
   //If the user is near the bottom of the page, and it is not autoscrolling 
   if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - loadDistFromBottom 
-      && !isAutoScrolling && nextHTTPRequest != null){
+      && !blockScrolling && nextHTTPRequest != null){
       callSearchAPI(nextHTTPRequest);
       console.log("scroll detected");
   }
@@ -184,7 +210,7 @@ function processSearchResponse(responseText){
 
 //Scroll down to make results viewable
 function scrollDown(scrollDistance){
-  isAutoScrolling = true; //Disables infinite scroll
+  blockScrolling = true; //Disables infinite scroll
   scrollDownRecu(0,scrollDistance); //Calling recursive function
 }
 
@@ -194,7 +220,7 @@ function scrollDownRecu(deltaScroll, scrollDistance){
   if(deltaScroll < scrollDistance){ //Base case
     scrolldelay = setTimeout(scrollDownRecu,1,deltaScroll+1,scrollDistance); //Recusive step
   } else {
-    isAutoScrolling = false; //Enables infinite scroll
+    blockScrolling = false; //Enables infinite scroll
   }
 }
 
@@ -221,20 +247,11 @@ function displayImages(response){
     //Creating the anchor containing the image
     let anc = document.createElement("a");
     //sets img source equal to the image address
-    anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt='+item.data[0].title+'/>';
+    anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt="'+item.data[0].title+'"/>';
     anc.setAttribute("href", item.links[0].href); //set up for the lightbox
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
     //Building Caption from Meta Data
-      // "title" taken at "center" on "date"
-    /*
-    let caption = '"' + item.data[0].title + '" taken at ' + item.data[0].center + " on " + item.data[0].date_created.substring(0,10);
-    caption += '<a href="'+item.links[0].href.replace("~thumb", "~orig")+'" target="_black"> Click to Full Size Image </a>';
-    let description = item.data[0].description;
-    description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
-    caption += " - " + description; //adding description
-    */
-
     let caption = '<div> <u>Title</u> - "' + item.data[0].title + '"</div>';
     caption += '<div> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
     caption += '<div> <u>Center</u> - ' + item.data[0].center + '</div>';
@@ -242,7 +259,7 @@ function displayImages(response){
     description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
     caption += '<div><u>Description</u></div>';
     caption += '<div>'+description+'</div>'
-
+    caption += '<button onclick="favImage()"> Add to Favorites </button>'
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
@@ -251,7 +268,41 @@ function displayImages(response){
   });
 }
 
-//Get assets for item in a search response
+/************* Favoriting Images *************/
+let favCounter = 0; //counters the number of favorited images
+
+let favCols = []; //Array for holding the galleries columns
+//Creating columns for gallery images
+for(i=0; i<numOfCols; i++){
+  let col = document.createElement("div");
+  let classname = "col-sm-12 col-md-";
+  classname += (Math.ceil(12/numOfCols)).toString(); //Edits the column widths in BS Grid based on numOfCols
+  col.className = classname;
+
+  favorites.appendChild(col);
+  favCols[favCols.length]=col;
+}
+
+function favImage(){
+  let anc = getLBAnchor();
+  favCols[favCounter%numOfCols].append(anc);
+  favCounter++;
+}
+
+//Goes through each column and finds the anchor that is currently in the lightbox
+function getLBAnchor(){
+  for(j = 0; j<numOfCols; j++){
+    for(i = 0; i<cols[j].children.length; i++){
+      if(cols[j].children[i].href == document.getElementById("lightbox").children[0].children[0].children[0].src){
+        return cols[j].children[i];
+      }
+    }
+  }
+}
+
+
+// UNUSED 
+  //Get assets for item in a search response
 function getItemAssets(item){
   callAssetAPI(item.data[0]["nasa_id"]);
 }
