@@ -24,7 +24,7 @@ h1{
   background-color: #FFF8E7;
 }
 
-.button{
+button{
   font-family: Raleway;
   background-color: #0077be;
   border: 1px solid #FFF8E7;
@@ -36,7 +36,7 @@ h1{
   width: 100%;
 }
 
-.button:focus{
+button:focus{
   outline: none;
 }
 

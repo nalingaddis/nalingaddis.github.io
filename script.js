@@ -9,12 +9,6 @@ inputFields.forEach(function(elem){
     if(event.keyCode === 13){searchButton.click();}
   });
 });
-  //Basic Search Button
-function search(){
-  document.body.scrollTop = 0; //Safari
-  document.documentElement.scrollTop = 0; //Everything else
-  callSearchAPI();
-}
   //Advanced Search Button Functionality
 function showAdvanced(){
   let advancedSearch = document.getElementById("advancedSearch");
@@ -52,6 +46,14 @@ function showFavorites(){
     blockScrolling = false;
   }
 }
+  //Basic Search Button
+function search(){
+  document.body.scrollTop = 0; //Safari
+  document.documentElement.scrollTop = 0; //Everything else
+  if(galSection.style.display === "none"){showFavorites();}
+  callSearchAPI();
+}
+
   //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
 let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
 "Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
@@ -252,14 +254,20 @@ function displayImages(response){
     anc.setAttribute("data-lightbox", "space"); //added lightbox magic
 
     //Building Caption from Meta Data
-    let caption = '<div> <u>Title</u> - "' + item.data[0].title + '"</div>';
+      //Adding Favorites and Full Size Image buttons
+    
+    // let caption = '<div class="row no-gutters"><div class="col"><button onclick="favImage()"> Add to Favorites </button></div><div class="col"><button onclick=" window.open(\''+
+    // item.links[0].href.replace("~thumb", "~orig")+'\',\'_blank\')"> Full Size </a></div></div>';
+
+    let caption = '<div class="row no-gutters"><div class="col"><button onclick="favImage()"> Add to Favorites </button></div><div class="col"><button onclick="callAssetAPI(\''
+    +item.data[0].nasa_id+'\')"> Full Size </a></div></div>'; //Gets the Assets for the image, then displays largest one
+    caption += '<div> <u>Title</u> - "' + item.data[0].title + '"</div>';
     caption += '<div> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
     caption += '<div> <u>Center</u> - ' + item.data[0].center + '</div>';
     let description = item.data[0].description;
     description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
     caption += '<div><u>Description</u></div>';
     caption += '<div>'+description+'</div>'
-    caption += '<button onclick="favImage()"> Add to Favorites </button>'
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
@@ -311,5 +319,13 @@ function getItemAssets(item){
 let assetResponse; //Response Object for asset request
 function processAssetResponse(responseText){
   assetResponse = JSON.parse(responseText);
-  console.log(assetResponse);
+
+  //Opens Largest Version of Image
+  let items = assetResponse.collection.items;
+  for(i=0; i<items.length; i++){
+    if(items[i].href.includes(".jpg") || items[i].href.includes(".png") || items[i].href.includes(".jpeg")){
+      window.open(items[i].href);
+      break;
+    }
+  }
 }
