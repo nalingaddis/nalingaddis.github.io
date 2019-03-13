@@ -60,7 +60,7 @@ let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
 "frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen","image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude","Mars","mass","matter","Mercury","meteor",
 "Milky Way","molecule","moon","NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
-"parallax","photometer","photosphere","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
+"parallax","photometer","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
 "reflection","rocket","rotate","satellite","Saturn","shine","solar system","space","Space Shuttle","spectrograph","spectrum",
 "spiral arms","star","starlight","stellar","Sun","sunspot","supergiant","supernova","telescope","temperature","theory",
 "transparent","ultraviolet","universe","Ursa Major","Venus","visible light","water","wavelength","waves",
@@ -259,15 +259,15 @@ function displayImages(response){
     // let caption = '<div class="row no-gutters"><div class="col"><button onclick="favImage()"> Add to Favorites </button></div><div class="col"><button onclick=" window.open(\''+
     // item.links[0].href.replace("~thumb", "~orig")+'\',\'_blank\')"> Full Size </a></div></div>';
 
-    let caption = '<div class="row no-gutters"><div class="col"><button onclick="favImage()"> Add to Favorites </button></div><div class="col"><button onclick="callAssetAPI(\''
+    let caption = '<div class="row no-gutters"><div class="col-12"><button onclick="favImage()"> Add to Favorites </button></div><div class="col-12"><button onclick="callAssetAPI(\''
     +item.data[0].nasa_id+'\')"> Full Size </a></div></div>'; //Gets the Assets for the image, then displays largest one
-    caption += '<div> <u>Title</u> - "' + item.data[0].title + '"</div>';
-    caption += '<div> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
-    caption += '<div> <u>Center</u> - ' + item.data[0].center + '</div>';
+    caption += '<div class="caption"> <u>Title</u> - "' + item.data[0].title + '"</div>';
+    caption += '<div class="caption"> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
+    caption += '<div class="caption"> <u>Center</u> - ' + item.data[0].center + '</div>';
     let description = item.data[0].description;
     description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
-    caption += '<div><u>Description</u></div>';
-    caption += '<div>'+description+'</div>'
+    caption += '<div class="caption"><u>Description</u></div>';
+    caption += '<div class="caption-description">'+description+'</div>'
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
