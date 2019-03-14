@@ -46,6 +46,10 @@ button:focus{
   outline: none;
 }
 
+.caption-button{
+  padding: 10px;
+}
+
 /* Image Caption */
 .caption{
   padding: 5px;

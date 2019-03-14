@@ -259,11 +259,11 @@ function displayImages(response){
     //sets img source equal to the image address
     anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt="'+item.data[0].title+'"/>';
     anc.setAttribute("href", item.links[0].href); //set up for the lightbox
-    anc.setAttribute("data-lightbox", "space"); //added lightbox magic
+    anc.setAttribute("data-lightbox", "results"); //added lightbox magic
 
     //Building Caption from Meta Data
       //Adding Favorites and Full Size Image buttons
-    let caption = '<div class="row no-gutters"><div class="col-12"><button class="ripple" onclick="addFavImage()"> Add to Favorites </button></div><div class="col-12"><button class="ripple" onclick="callAssetAPI(\''
+    let caption = '<div class="row no-gutters"><div class="col-12"><button class="caption-button ripple" onclick="addFavImage()"> Add to Favorites </button></div><div class="col-12"><button class="caption-button ripple" onclick="callAssetAPI(\''
     +item.data[0].nasa_id+'\')"> Full Size </button></div></div>'; //Gets the Assets for the image, then displays largest one
       //Title
     caption += '<div class="caption"> <u>Title</u> - "' + item.data[0].title + '"</div>';
@@ -310,6 +310,8 @@ function addFavImage(){
   caption = caption.replace("Add to", "Remove from").replace("addFavImage","remFavImage");
     //Replacing the anchors caption
   anc.setAttribute("data-title", caption);
+    //Adding the image to a different lightbox
+  anc.setAttribute("data-lightbox", "favorites");
     //Appending to alternating columns
   favCols[favCounter%numOfCols].append(anc);
   favCounter++;
