@@ -274,22 +274,20 @@ function displayImages(response){
     let caption = '<div class="row no-gutters"><div class="col-12"><button class="caption-button ripple" onclick="addFavImage()"> Add to Favorites </button></div><div class="col-12"><button class="caption-button ripple" onclick="callAssetAPI(\''
     +item.data[0].nasa_id+'\')"> Full Size </button></div></div>'; //Gets the Assets for the image, then displays largest one
       //Title
-    caption += '<div class="caption"> <u>Title</u> - "' + item.data[0].title + '"</div>';
+    if(item.data[0].title !== undefined){caption += '<div class="caption"> <u>Title</u> - "' + item.data[0].title + '"</div>';}
       //Date
-    caption += '<div class="caption"> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
+    if(item.data[0].date_created !== undefined){caption += '<div class="caption"> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';}
       //Center
-    caption += '<div class="caption"> <u>Center</u> - ' + item.data[0].center + '</div>';
-      //Formating Description
-      let description;
-    if(item.data[0].description !== undefined){
-      description = item.data[0].description;
-      description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
-    } else {
-      description = item.data[0].title;
-    }
+    if(item.data[0].center !== undefined){caption += '<div class="caption"> <u>Center</u> - ' + item.data[0].center + '</div>';}
       //Description
-    caption += '<div class="caption"><u>Description</u></div>';
-    caption += '<div class="caption-description">'+description+'</div>'
+    if(item.data[0].description !== undefined){
+        // formating description
+      let description = item.data[0].description;
+      description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
+      
+      caption += '<div class="caption"><u>Description</u></div>';
+      caption += '<div class="caption-description">'+description+'</div>'
+    }
       //Adding caption to anchor
     anc.setAttribute("data-title", caption);
 
