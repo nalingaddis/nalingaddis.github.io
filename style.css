@@ -1,9 +1,19 @@
 /* Custom adjustments to Bootstraps default CSS */
 /* Color theme based on Cosmic Latte (#FFF8E7), the average color of the universe */
 
-h1{
+*{
   font-family: Raleway;
+}
+
+h1{
   padding-bottom: 50px;
+}
+
+p{
+  text-align: center;
+  font-size: 22px;
+  font-weight: bolder;
+  margin-bottom: 10px;
 }
 
 /* Ripple effect */
@@ -22,7 +32,6 @@ h1{
 
 /* Buttons */
 button{
-  font-family: Raleway;
   background-color: #0077be;
   border: 1px solid #FFF8E7;
   color: #FFF8E7;
@@ -50,7 +59,7 @@ button:focus{
   padding: 5px;
   padding-top: 0px;
   font-weight: lighter;
-  line-height: 15px;
+  line-height: 16px;
 }
 
 /* Sticky Header */
@@ -65,7 +74,7 @@ button:focus{
 
 /* Footer */
 .footer{
-  position: fixed;
+  position: relative;
   bottom: 0;
   z-index: 1;
   padding-top: 5px;

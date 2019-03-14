@@ -51,7 +51,11 @@ function search(){
   document.body.scrollTop = 0; //Safari
   document.documentElement.scrollTop = 0; //Everything else
   if(galSection.style.display === "none"){showFavorites();}
+
   callSearchAPI();
+
+  // Message to inform user that they have seen all search results
+  document.getElementById("gallery-message").textContent = "You've reached the edge of the universe, make a new search to continue exploring!"
 }
 
   //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
@@ -295,6 +299,8 @@ function favImage(){
   let anc = getLBAnchor().cloneNode(true);
   favCols[favCounter%numOfCols].append(anc);
   favCounter++;
+  // Message to inform user that they have seen all of their saved images
+  document.getElementById("favorites-message").textContent = "These are the images you've saved. To save more images, click on an image in the search results image and press 'Add to Favorites'.";
 }
 
 //Goes through each column and finds the anchor that is currently in the lightbox
@@ -307,7 +313,6 @@ function getLBAnchor(){
     }
   }
 }
-
 
 // UNUSED 
   //Get assets for item in a search response
