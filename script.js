@@ -23,8 +23,11 @@ function showAdvanced(){
 let blockScrolling = false; //Prevents bugs and excess loading
 
   //Establishing for Future Reference
-let favorites = document.getElementById("favorites");
-let gallery = document.getElementById("gallery");
+let favorites = document.getElementById("favorites"); //The closest div to the favorited images
+let gallery = document.getElementById("gallery"); //The closest div to the search result images
+let imageCount = document.getElementById("image-count"); //Show number of images in search/favorite
+let favCounter = 0; //Counts the number of favorited images
+let resultsCounter = 0; //Counts number of results returned
 
   //Favorites Button Functionality
 let favSection = document.getElementById("favorites-section");
@@ -37,16 +40,17 @@ function showFavorites(){
   document.body.scrollTop = 0; //Safari
   document.documentElement.scrollTop = 0; //Everything else
   if(favSection.style.display === "none"){
-    galSection.style.display = "none";
-    favSection.style.display = "block";
-    document.getElementById("favorites-button").textContent = "Results";
-    blockScrolling = true;
+    galSection.style.display = "none"; //Hides gallery
+    favSection.style.display = "block"; //Shows favorites
+    showFavoritesCount(); //Shows the number of favorites at the top
+    document.getElementById("favorites-button").textContent = "Results"; //Changes button text
+    blockScrolling = true; //Disables infinite scrolling
   } else {
-    galSection.style.display = "block";
-    favSection.style.display = "none";
-    document.getElementById("favorites-button").textContent = "Favorites";
-
-    blockScrolling = false;
+    galSection.style.display = "block"; //Shows Gallery
+    favSection.style.display = "none"; //Hides Favorites
+    showResultsCount(); //Shows the number of search results
+    document.getElementById("favorites-button").textContent = "Favorites"; //Changes button text
+    blockScrolling = false; //Enables infinte scrolling
   }
 }
   //Basic Search Button
@@ -194,7 +198,8 @@ function processSearchResponse(responseText){
   
   console.log(searchResponse);
 
-  showResultsCount(searchResponse);  //Displays the number of search results
+  resultsCounter = searchResponse.collection.metadata.total_hits;
+  showResultsCount();  //Displays the number of search results
 
   let address = searchResponse.collection.href; //The address of the request
   let isNewSearch = (address.search("page=") === -1); //If the request is the first page, then it is a new search
@@ -235,9 +240,12 @@ function scrollDownRecu(deltaScroll, scrollDistance){
 }
 
 //Prints the number of search results
-function showResultsCount(response){
-  let resultsCount = document.getElementById("resultsCount");
-  resultsCount.textContent = response.collection.metadata["total_hits"] + " search results.";
+function showResultsCount(){
+  imageCount.textContent = resultsCounter + " search results.";
+}
+
+function showFavoritesCount(){
+  imageCount.textContent = favCounter + " favorited images.";
 }
 
 //Clears images from the gallery, by column
@@ -280,15 +288,13 @@ function displayImages(response){
       //Adding caption to anchor
     anc.setAttribute("data-title", caption);
 
-    //Appending to alternating columns
-    cols[counter%numOfCols].appendChild(anc);
+    //Appending to alternating columns using counter
+    cols[counter%numOfCols].appendChild(anc); // faster for more images than the reduce function in this use case
     counter++;
   });
 }
 
 /************* Favoriting Images *************/
-let favCounter = 0; //counters the number of favorited images
-
 let favCols = []; //Array for holding the galleries columns
 //Creating columns for gallery images
 for(i=0; i<numOfCols; i++){
@@ -303,7 +309,7 @@ for(i=0; i<numOfCols; i++){
 
 function addFavImage(){
     //Gets anchor from gallery
-  let anc = getLBAnchor(cols).cloneNode(true);
+  let anc = getLBAnchor(cols)[0].cloneNode(true);
     //Copying current caption
   caption = anc.getAttribute("data-title");
     //Replacing the Add to Favorites Buttom with a Remove from Favorites
@@ -312,17 +318,21 @@ function addFavImage(){
   anc.setAttribute("data-title", caption);
     //Adding the image to a different lightbox
   anc.setAttribute("data-lightbox", "favorites");
-    //Appending to alternating columns
-  favCols[favCounter%numOfCols].append(anc);
+    //Appending to the shortest column, better in this use case because it accounts for deleted images
+  favCols.reduce(function(a,b){
+    if(a.children.length > b.children.length){return b;} else {return a;}
+  }).append(anc);
+    //Used to for user reference
   favCounter++;
-  // Message to inform user that they have seen all of their saved images
+    // Message to inform user that they have seen all of their saved images
   document.getElementById("favorites-message").textContent = "These are your favorite images. To favorite more images, click on an image in the search results image and 'Add to Favorites'.";
 }
 
 function remFavImage(){
-    //Gets anchor from favorites
-  let anc = getLBAnchor(favCols);
-  favorites.remove(anc);
+  pair = getLBAnchor(favCols); //Get parent child pair from lightbox
+  pair[1].removeChild(pair[0]); //Removes the child from the parent
+  favCounter--;
+  showFavoritesCount(); //Upated the Favorite Counter on screen
 }
 
 //Goes through each column and finds the anchor that is currently in the lightbox
@@ -330,7 +340,7 @@ function getLBAnchor(columns){
   for(j = 0; j<numOfCols; j++){
     for(i = 0; i<columns[j].children.length; i++){
       if(columns[j].children[i].href == document.getElementById("lightbox").children[0].children[0].children[0].src){
-        return columns[j].children[i];
+        return [columns[j].children[i], columns[j]];
       }
     }
   }

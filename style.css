@@ -84,6 +84,7 @@ button:focus{
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: #FFF8E7;
+  text-align: center;
 }
 
 /* Input Fields */
