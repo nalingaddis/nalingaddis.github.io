@@ -33,25 +33,25 @@
         <section class="container-fluid">
           <div class="row no-gutters justify-content-center">
             <div class="col-sm-2 col-md-2">
-              <button onclick="showAdvanced()">More</button>
+              <button class="ripple" onclick="showAdvanced()">More</button>
             </div>
             <div class="col-sm-2 col-md-2">
-                <button id="exampleButton" onclick="makeExample()">Try Me!</button>
+                <button class="ripple" id="exampleButton" onclick="makeExample()">Try Me!</button>
             </div>
             <div class="col-sm-4 col-md-4">
               <input id="q" class="inputField" type="text" placeholder="Explore...">
             </div>
             <div class="col-sm-2 col-md-2">
-                <button id="searchButton" onclick="search()">Search</button>
+                <button class="ripple" id="searchButton" onclick="search()">Search</button>
             </div>
             <div class="col-sm-2 col-md-2">
-              <button onclick="showFavorites()">Favorites</button>
+              <button class="ripple" onclick="showFavorites()">Favorites</button>
             </div>
           </div>
         </section>    
 
         <!-- Advanced Search -->
-        <section id="advancedSearch" class="container-fluid start-hidden">
+        <section style="display: none;" id="advancedSearch" class="container-fluid">
           <div class="row no-gutters justify-content-center">
             <div class="col-sm-3 col-md-2">
               <input id="description" class="inputField" type="text" placeholder="Description">

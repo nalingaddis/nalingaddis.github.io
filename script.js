@@ -259,8 +259,8 @@ function displayImages(response){
     // let caption = '<div class="row no-gutters"><div class="col"><button onclick="favImage()"> Add to Favorites </button></div><div class="col"><button onclick=" window.open(\''+
     // item.links[0].href.replace("~thumb", "~orig")+'\',\'_blank\')"> Full Size </a></div></div>';
 
-    let caption = '<div class="row no-gutters"><div class="col-12"><button onclick="favImage()"> Add to Favorites </button></div><div class="col-12"><button onclick="callAssetAPI(\''
-    +item.data[0].nasa_id+'\')"> Full Size </a></div></div>'; //Gets the Assets for the image, then displays largest one
+    let caption = '<div class="row no-gutters"><div class="col-12"><button class="ripple" onclick="favImage()"> Add to Favorites </button></div><div class="col-12"><button class="ripple" onclick="callAssetAPI(\''
+    +item.data[0].nasa_id+'\')"> Full Size </button></div></div>'; //Gets the Assets for the image, then displays largest one
     caption += '<div class="caption"> <u>Title</u> - "' + item.data[0].title + '"</div>';
     caption += '<div class="caption"> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
     caption += '<div class="caption"> <u>Center</u> - ' + item.data[0].center + '</div>';
@@ -292,7 +292,7 @@ for(i=0; i<numOfCols; i++){
 }
 
 function favImage(){
-  let anc = getLBAnchor();
+  let anc = getLBAnchor().cloneNode(true);
   favCols[favCounter%numOfCols].append(anc);
   favCounter++;
 }
