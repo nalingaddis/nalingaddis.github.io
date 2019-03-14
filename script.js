@@ -280,8 +280,13 @@ function displayImages(response){
       //Center
     caption += '<div class="caption"> <u>Center</u> - ' + item.data[0].center + '</div>';
       //Formating Description
-    let description = item.data[0].description;
-    description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
+      let description;
+    if(item.data[0].description !== undefined){
+      description = item.data[0].description;
+      description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
+    } else {
+      description = item.data[0].title;
+    }
       //Description
     caption += '<div class="caption"><u>Description</u></div>';
     caption += '<div class="caption-description">'+description+'</div>'
