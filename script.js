@@ -26,6 +26,7 @@ let blockScrolling = false; //Prevents bugs and excess loading
 let favorites = document.getElementById("favorites"); //The closest div to the favorited images
 let gallery = document.getElementById("gallery"); //The closest div to the search result images
 let imageCount = document.getElementById("image-count"); //Show number of images in search/favorite
+showResultsCount(); //Initializes the image count
 let favCounter = 0; //Counts the number of favorited images
 let resultsCounter = 0; //Counts number of results returned
 
