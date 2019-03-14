@@ -1,8 +1,8 @@
 /************* Initialize Search Elements On the Page *************/
 //Elements on the page
-const searchButton = document.getElementById("searchButton");
+var searchButton = document.getElementById("searchButton");
   //Array of Input Fields
-const inputFields = document.querySelectorAll(".inputField")  
+var inputFields = document.querySelectorAll(".inputField")  
   //Allows the user to search with the "enter" key
 inputFields.forEach(function(elem){
   elem.addEventListener("keyup",function(event){
@@ -20,19 +20,18 @@ function showAdvanced(){
 }
 
 /* See Setion on Infinite Scrolling */
-let blockScrolling = false; //Prevents bugs and excess loading
-
+var blockScrolling = false; //Prevents bugs and excess loading
   //Establishing for Future Reference
-let favorites = document.getElementById("favorites"); //The closest div to the favorited images
-let gallery = document.getElementById("gallery"); //The closest div to the search result images
-let imageCount = document.getElementById("image-count"); //Show number of images in search/favorite
+var favorites = document.getElementById("favorites"); //The closest div to the favorited images
+var gallery = document.getElementById("gallery"); //The closest div to the search result images
+var imageCount = document.getElementById("image-count"); //Show number of images in search/favorite
 showResultsCount(); //Initializes the image count
-let favCounter = 0; //Counts the number of favorited images
-let resultsCounter = 0; //Counts number of results returned
+var favCounter = 0; //Counts the number of favorited images
+var resultsCounter = 0; //Counts number of results returned
 
   //Favorites Button Functionality
-let favSection = document.getElementById("favorites-section");
-let galSection = document.getElementById("gallery-section");
+var favSection = document.getElementById("favorites-section");
+var galSection = document.getElementById("gallery-section");
 
 favSection.style.display = "none"; //Hides favorites initially 
 
@@ -67,7 +66,7 @@ function search(){
 }
 
   //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
-let examples = ["Andromeda Galaxy", "Apollo", "asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
+var examples = ["Andromeda Galaxy", "Apollo", "asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
 "Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
 "frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen",
@@ -83,8 +82,8 @@ function makeExample(){
 }
 
 /************* Creating the gallery columns *************/
-const numOfCols = 4; //Determines the MAX number of columns create, NEEDS TO BE factor of 12
-let cols = []; //Array for holding the galleries columns
+var numOfCols = 4; //Determines the MAX number of columns create, NEEDS TO BE factor of 12
+var cols = []; //Array for holding the galleries columns
 
 //Creating columns for gallery images
 for(i=0; i<numOfCols; i++){
@@ -98,10 +97,10 @@ for(i=0; i<numOfCols; i++){
 }
 
 /************* Onscroll Effect for Infinite Scrolling  *************/
-const loadDistFromBottom = 2000; //Distance for bottom when the next page will be loaded
+var loadDistFromBottom = 2000; //Distance for bottom when the next page will be loaded
   //Disables bottom of page detection while autoscroll is active
 
-let nextHTTPRequest = null;
+var nextHTTPRequest = null;
 
 window.onscroll = function(event){
   //If the user is near the bottom of the page, and it is not autoscrolling 
@@ -122,18 +121,18 @@ window.onscroll = function(event){
 };
 
 /************* Instantiating Lozad Module  *************/
-const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+var observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
 
 /************* API Call Handling *************/
 //NASA's API addresses
-const rootAddress = "https://images-api.nasa.gov/";
-const searchExt = "search?media_type=image&"; //always return images
-const assetExt = "asset/";
+var rootAddress = "https://images-api.nasa.gov/";
+var searchExt = "search?media_type=image&"; //always return images
+var assetExt = "asset/";
 
 //Creating an XMLHttpRequest objects
-const searchRequest = new XMLHttpRequest();
-const assetRequest = new XMLHttpRequest();
+var searchRequest = new XMLHttpRequest();
+var assetRequest = new XMLHttpRequest();
 
 //Behavior for Search Response
 searchRequest.onreadystatechange = function(){
@@ -296,7 +295,7 @@ function displayImages(response){
 }
 
 /************* Favoriting Images *************/
-let favCols = []; //Array for holding the galleries columns
+var favCols = []; //Array for holding the galleries columns
 //Creating columns for gallery images
 for(i=0; i<numOfCols; i++){
   let col = document.createElement("div");
@@ -354,7 +353,7 @@ function getItemAssets(item){
 }
 
 /****** Asset Response ******/
-let assetResponse; //Response Object for asset request
+var assetResponse; //Response Object for asset request
 function processAssetResponse(responseText){
   assetResponse = JSON.parse(responseText);
 
