@@ -39,10 +39,13 @@ function showFavorites(){
   if(favSection.style.display === "none"){
     galSection.style.display = "none";
     favSection.style.display = "block";
+    document.getElementById("favorites-button").textContent = "Results";
     blockScrolling = true;
   } else {
     galSection.style.display = "block";
     favSection.style.display = "none";
+    document.getElementById("favorites-button").textContent = "Favorites";
+
     blockScrolling = false;
   }
 }
@@ -59,11 +62,12 @@ function search(){
 }
 
   //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
-let examples = ["Andromeda Galaxy","asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
+let examples = ["Andromeda Galaxy", "Apollo", "asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
 "Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
-"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen","image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude","Mars","mass","matter","Mercury","meteor",
-"Milky Way","molecule","moon","NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
+"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen",
+"image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude",
+"Mars","mass","matter","Mercury","meteor","Milky Way","molecule","moon","moon landing", "NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
 "parallax","photometer","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
 "reflection","rocket","rotate","satellite","Saturn","shine","solar system","space","Space Shuttle","spectrograph","spectrum",
 "spiral arms","star","starlight","stellar","Sun","sunspot","supergiant","supernova","telescope","temperature","theory",
@@ -259,19 +263,21 @@ function displayImages(response){
 
     //Building Caption from Meta Data
       //Adding Favorites and Full Size Image buttons
-    
-    // let caption = '<div class="row no-gutters"><div class="col"><button onclick="favImage()"> Add to Favorites </button></div><div class="col"><button onclick=" window.open(\''+
-    // item.links[0].href.replace("~thumb", "~orig")+'\',\'_blank\')"> Full Size </a></div></div>';
-
-    let caption = '<div class="row no-gutters"><div class="col-12"><button class="ripple" onclick="favImage()"> Add to Favorites </button></div><div class="col-12"><button class="ripple" onclick="callAssetAPI(\''
+    let caption = '<div class="row no-gutters"><div class="col-12"><button class="ripple" onclick="addFavImage()"> Add to Favorites </button></div><div class="col-12"><button class="ripple" onclick="callAssetAPI(\''
     +item.data[0].nasa_id+'\')"> Full Size </button></div></div>'; //Gets the Assets for the image, then displays largest one
+      //Title
     caption += '<div class="caption"> <u>Title</u> - "' + item.data[0].title + '"</div>';
+      //Date
     caption += '<div class="caption"> <u>Date</u> - ' + item.data[0].date_created.substring(0,10) + '</div>';
+      //Center
     caption += '<div class="caption"> <u>Center</u> - ' + item.data[0].center + '</div>';
+      //Formating Description
     let description = item.data[0].description;
     description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
+      //Description
     caption += '<div class="caption"><u>Description</u></div>';
     caption += '<div class="caption-description">'+description+'</div>'
+      //Adding caption to anchor
     anc.setAttribute("data-title", caption);
 
     //Appending to alternating columns
@@ -295,20 +301,34 @@ for(i=0; i<numOfCols; i++){
   favCols[favCols.length]=col;
 }
 
-function favImage(){
-  let anc = getLBAnchor().cloneNode(true);
+function addFavImage(){
+    //Gets anchor from gallery
+  let anc = getLBAnchor(cols).cloneNode(true);
+    //Copying current caption
+  caption = anc.getAttribute("data-title");
+    //Replacing the Add to Favorites Buttom with a Remove from Favorites
+  caption = caption.replace("Add to", "Remove from").replace("addFavImage","remFavImage");
+    //Replacing the anchors caption
+  anc.setAttribute("data-title", caption);
+    //Appending to alternating columns
   favCols[favCounter%numOfCols].append(anc);
   favCounter++;
   // Message to inform user that they have seen all of their saved images
-  document.getElementById("favorites-message").textContent = "These are the images you've saved. To save more images, click on an image in the search results image and press 'Add to Favorites'.";
+  document.getElementById("favorites-message").textContent = "These are your favorite images. To favorite more images, click on an image in the search results image and 'Add to Favorites'.";
+}
+
+function remFavImage(){
+    //Gets anchor from favorites
+  let anc = getLBAnchor(favCols);
+  favorites.remove(anc);
 }
 
 //Goes through each column and finds the anchor that is currently in the lightbox
-function getLBAnchor(){
+function getLBAnchor(columns){
   for(j = 0; j<numOfCols; j++){
-    for(i = 0; i<cols[j].children.length; i++){
-      if(cols[j].children[i].href == document.getElementById("lightbox").children[0].children[0].children[0].src){
-        return cols[j].children[i];
+    for(i = 0; i<columns[j].children.length; i++){
+      if(columns[j].children[i].href == document.getElementById("lightbox").children[0].children[0].children[0].src){
+        return columns[j].children[i];
       }
     }
   }
