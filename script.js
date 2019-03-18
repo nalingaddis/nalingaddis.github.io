@@ -311,24 +311,48 @@ for(i=0; i<numOfCols; i++){
 }
 
 function addFavImage(){
-    //Gets anchor from gallery
-  let anc = getLBAnchor(cols)[0].cloneNode(true);
+  //Gets anchor from gallery
+    //Saving for later
+  let original = getLBAnchor(cols)[0];
+
+  //Modifying the clone and appending to favorites section
+  let clone = original.cloneNode(true);
     //Copying current caption
-  caption = anc.getAttribute("data-title");
+  caption = clone.getAttribute("data-title");
     //Replacing the Add to Favorites Buttom with a Remove from Favorites
   caption = caption.replace("Add to", "Remove from").replace("addFavImage","remFavImage");
     //Replacing the anchors caption
-  anc.setAttribute("data-title", caption);
+  clone.setAttribute("data-title", caption);
     //Adding the image to a different lightbox
-  anc.setAttribute("data-lightbox", "favorites");
+  clone.setAttribute("data-lightbox", "favorites");
     //Appending to the shortest column, better in this use case because it accounts for deleted images
   favCols.reduce(function(a,b){
     if(a.children.length > b.children.length){return b;} else {return a;}
-  }).append(anc);
+  }).append(clone);
     //Used to for user reference
   favCounter++;
     // Message to inform user that they have seen all of their saved images
   document.getElementById("favorites-message").textContent = "These are your favorite images. To favorite more images, click on an image in the search results image and 'Add to Favorites'.";
+    
+  //Changing the "Add to Favorites" button in the lightbox
+    //Getting the button
+  addedButton = document.getElementById("lightbox").children[1].children[0].children[0].children[0].children[0].children[0].children[0];
+    //Disabling button
+  addedButton.disabled = true;
+    //Changing background color to green
+  addedButton.style = "background-color: #00AC90;";
+    //Changing text to say "Added"
+  addedButton.textContent = "Added to Favorites";
+
+  //Changing the button permanently via the anchor
+    //Get the caption of the image in the anchor
+  caption = original.getAttribute('data-title');
+    //Changes background color and disabling button
+  caption = caption.replace('addFavImage()"','addFavImage()" style="background-color: #00AC90;" disabled');
+    //Changing the text content
+  caption = caption.replace("Add to Favorites", "Added To Favorites");
+    //Implementing the change
+  original.setAttribute("data-title", caption);
 }
 
 function remFavImage(){
@@ -336,6 +360,16 @@ function remFavImage(){
   pair[1].removeChild(pair[0]); //Removes the child from the parent
   favCounter--;
   showFavoritesCount(); //Upated the Favorite Counter on screen
+
+  //Changing the "Remove from Favorites" button in the lightbox
+    //Getting the button
+  removeButton = document.getElementById("lightbox").children[1].children[0].children[0].children[0].children[0].children[0].children[0];
+    //Disabling button
+  removeButton.disabled = true;
+    //Changing background color to green
+  removeButton.style = "background-color: #00AC90;";
+    //Changing text to say "Added"
+  removeButton.textContent = "Removed from Favorites";
 }
 
 //Goes through each column and finds the anchor that is currently in the lightbox
@@ -349,7 +383,7 @@ function getLBAnchor(columns){
   }
 }
 
-// UNUSED 
+// Saving for future expansion, currently unused
   //Get assets for item in a search response
 function getItemAssets(item){
   callAssetAPI(item.data[0]["nasa_id"]);
