@@ -67,7 +67,7 @@ function search(){
 
   //List of Example searchs, taken from NASA https://spaceplace.nasa.gov/sign-here-glossary/en/
 var examples = ["Andromeda Galaxy", "Apollo", "asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
-"Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cold",
+"Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cluster","cold",
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
 "frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen",
 "image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude",
@@ -219,7 +219,6 @@ function processSearchResponse(responseText){
     nextHTTPRequest = null;
   }
 
-  //Scrolling down is not needed on mobile, and looks clunky
   if(isNewSearch){scrollDown(300);} //Only scrolls on new search
 }
 
@@ -339,16 +338,16 @@ function addFavImage(){
   addedButton = document.getElementById("lightbox").children[1].children[0].children[0].children[0].children[0].children[0].children[0];
     //Disabling button
   addedButton.disabled = true;
-    //Changing background color to green
-  addedButton.style = "background-color: #00AC90;";
+    //Changing background color to green and disabling cursor
+  addedButton.style = "background-color: #00AC90; cursor: not-allowed;";
     //Changing text to say "Added"
   addedButton.textContent = "Added to Favorites";
 
   //Changing the button permanently via the anchor
     //Get the caption of the image in the anchor
   caption = original.getAttribute('data-title');
-    //Changes background color and disabling button
-  caption = caption.replace('addFavImage()"','addFavImage()" style="background-color: #00AC90;" disabled');
+    //Changes background color, disabling button and cursor
+  caption = caption.replace('addFavImage()"','addFavImage()" style="background-color: #00AC90; cursor: not-allowed;" disabled');
     //Changing the text content
   caption = caption.replace("Add to Favorites", "Added To Favorites");
     //Implementing the change
@@ -366,8 +365,8 @@ function remFavImage(){
   removeButton = document.getElementById("lightbox").children[1].children[0].children[0].children[0].children[0].children[0].children[0];
     //Disabling button
   removeButton.disabled = true;
-    //Changing background color to green
-  removeButton.style = "background-color: #00AC90;";
+    //Changing background color to green and disabling cursor
+  removeButton.style = "background-color: #00AC90; cursor: not-allowed;";
     //Changing text to say "Added"
   removeButton.textContent = "Removed from Favorites";
 }
