@@ -120,10 +120,6 @@ window.onscroll = function(event){
   }
 };
 
-/************* Instantiating Lozad Module  *************/
-var observer = lozad(); // lazy loads elements with default selector as '.lozad'
-observer.observe();
-
 /************* API Call Handling *************/
 //NASA's API addresses
 var rootAddress = "https://images-api.nasa.gov/";
@@ -264,7 +260,7 @@ function displayImages(response){
     //Creating the anchor containing the image
     let anc = document.createElement("a");
     //sets img source equal to the image address
-    anc.innerHTML = '<img class="lozad" src="' + item.links[0].href+'" alt="'+item.data[0].title+'"/>';
+    anc.innerHTML = '<img data-src="' + item.links[0].href+'" alt="'+item.data[0].title+'"/>';
     anc.setAttribute("href", item.links[0].href); //set up for the lightbox
     anc.setAttribute("data-lightbox", "results"); //added lightbox magic
 
