@@ -366,7 +366,7 @@ function remFavImage(){
     //Disabling button
   removeButton.disabled = true;
     //Changing background color to green and disabling cursor
-  removeButton.style = "background-color: #00AC90; cursor: not-allowed;";
+  removeButton.style = "background-color: #BF5846; cursor: not-allowed;";
     //Changing text to say "Added"
   removeButton.textContent = "Removed from Favorites";
 }
