@@ -220,7 +220,7 @@ function processSearchResponse(responseText){
   }
 
   //Scrolling down is not needed on mobile, and looks clunky
-  if(screen.width > 720 && isNewSearch){scrollDown(300);} //Only scrolls on new search
+  if(isNewSearch){scrollDown(300);} //Only scrolls on new search
 }
 
 //Scroll down to make results viewable
