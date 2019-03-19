@@ -69,14 +69,14 @@ function search(){
 var examples = ["Andromeda Galaxy", "Apollo", "asteroids","arms","astronauts","astronomy","atom","aurora","axis","Big Bang",
 "Big Dipper","binary star","black dwarf","black hole","brown dwarf","carbon","celestial","chromosphere","cloud","cluster","cold",
 "comet","constellation","Crab Nebula","dust","Earth","electromagnetic","element","elliptical galaxy","energy","force",
-"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","hydrocarbon","hydrogen",
+"frequency","fusion","galactic","galactic center","galaxy","gamma rays","gas","gravity","heat","heliosphere","Horsehead nebula","hydrocarbon","hydrogen",
 "image","infrared","interstellar","Jupiter","life","light","light-year","local group","luminosity","magnetosphere","magnitude",
-"Mars","mass","matter","Mercury","meteor","Milky Way","molecule","moon","moon landing", "NASA","nebula","Neptune","neutron star","North Star","observatory","orbit","Orion","oxygen",
-"parallax","photometer","planet","Polaris","pulsar","quasar","radiation","radio waves","ray","red giant",
-"reflection","rocket","rotate","satellite","Saturn","shine","solar system","space","Space Shuttle","spectrograph","spectrum",
-"spiral arms","star","starlight","stellar","Sun","sunspot","supergiant","supernova","telescope","temperature","theory",
-"transparent","ultraviolet","universe","Ursa Major","Venus","visible light","water","wavelength","waves",
-"Whirlpool Galaxy","white dwarf","x-ray"]
+"Mars","mass","matter","Mercury","meteor","Milky Way","molecule","moon","moon landing", "NASA","nebula","Neptune",
+"neutron star","North Star","observatory","orbit","Orion","oxygen","parallax","photometer","planet","Polaris",
+"pulsar","quasar","radiation","radio waves","ray","red giant","reflection","rocket","rotate","satellite","Saturn",
+"shine","solar system","space","Space Shuttle","spectrograph","spectrum","spiral arms","star","starlight","stellar",
+"Sun","sunspot","supergiant","supernova","telescope","temperature","theory","transparent","ultraviolet","universe",
+"Ursa Major","Venus","visible light","water","wavelength","waves","Whirlpool Galaxy","white dwarf","x-ray"]
 function makeExample(){
   inputFields[0].value = examples[Math.floor(Math.random() * examples.length)];
 }
@@ -96,11 +96,12 @@ for(i=0; i<numOfCols; i++){
   cols[cols.length]=col;
 }
 
-/************* Onscroll Effect for Infinite Scrolling  *************/
+/************* Onscroll Effects for Infinite Scrolling  *************/
 var loadDistFromBottom = 2000; //Distance for bottom when the next page will be loaded
   //Disables bottom of page detection while autoscroll is active
 
 var nextHTTPRequest = null;
+var oldScroll = 0;
 
 window.onscroll = function(event){
   //If the user is near the bottom of the page, and it is not autoscrolling 
@@ -113,11 +114,13 @@ window.onscroll = function(event){
   //Floating Search Header
   let header = document.getElementById("search-area");
   let top = document.getElementById("top");
-  if(window.pageYOffset > top.offsetHeight + top.offsetTop){
+  let newScroll = this.scrollY;
+  if(window.pageYOffset > top.offsetHeight + top.offsetTop && oldScroll > newScroll){
     header.classList.add("sticky");
   } else {
     header.classList.remove("sticky");
   }
+  oldScroll = newScroll;
 };
 
 /************* API Call Handling *************/
@@ -260,7 +263,7 @@ function displayImages(response){
     //Creating the anchor containing the image
     let anc = document.createElement("a");
     //sets img source equal to the image address
-    anc.innerHTML = '<img data-src="' + item.links[0].href+'" alt="'+item.data[0].title+'"/>';
+    anc.innerHTML = '<img src="' + item.links[0].href+'"alt="'+item.data[0].title+'"/>';
     anc.setAttribute("href", item.links[0].href); //set up for the lightbox
     anc.setAttribute("data-lightbox", "results"); //added lightbox magic
 
