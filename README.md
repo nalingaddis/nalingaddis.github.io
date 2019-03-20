@@ -1,15 +1,15 @@
-# Web App for Exploring NASA's image archives
+# NASA Image Explorer - Web App for Exploring NASA's image archives
 
 ## Challenge
 Use NASA's public API's to build a deployable web app that will allow users to search NASA's image archive and displays results in an intuitive, easy to navigate interface.   
 *By Capital One*
 
 ## Solution
-My web app, NASA Image Search, is built using HTML, CSS, and vanilla JavaScript and is deployed via [GitHub pages](https://nalingaddis.github.io). The website uses [Bootstrap](https://getbootstrap.com/) and [Lightbox2](https://lokeshdhakar.com/projects/lightbox2). 
+NASA Image Explorer, is built using HTML, CSS, and vanilla JavaScript and is deployed via [GitHub pages](https://nalingaddis.github.io). The website uses [Bootstrap](https://getbootstrap.com/) and [Lightbox2](https://lokeshdhakar.com/projects/lightbox2). 
    
 [Bootstrap](https://getbootstrap.com/) is used for creating a mobile friendly interface via their grid system which allows rows and columns to stack neatly, depending on the size of the screen. This creates both mobile friendly images and search buttons/fields.
    
-[Lightbox2](https://lokeshdhakar.com/projects/lightbox2) is a module that allowed me to quickly implement a flexible lightbox which displays an image's metadata, a link to the highest resolution image, and an "Add to favorites" button.  
+[Lightbox2](https://lokeshdhakar.com/projects/lightbox2) is a module that allowed me to quickly implement a flexible lightbox which displays an image's metadata, a link to the highest resolution image, and an "Add to Favorites" button.  
 
 Additional bells and whistles include:
 * Infinite scrolling - allows continous scrolling until the user has seen all results (loads images in batches of 100)
