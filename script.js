@@ -1,25 +1,25 @@
-/************* Initialize Search Elements On the Page *************/
-//Elements on the page
+/************* Initializing Globals and Page Elements *************/
+  //Main search button
 var searchButton = document.getElementById("searchButton");
-  //Array of Input Fields
+  //Array of input fields, used for creating search query
 var inputFields = document.querySelectorAll(".inputField")  
   //Allows the user to search with the "enter" key
-inputFields.forEach(function(elem){
-  elem.addEventListener("keyup",function(event){
-    if(event.keyCode === 13){searchButton.click();}
+inputFields.forEach(function(elem){ //Iterating through input fields
+  elem.addEventListener("keyup",function(event){ //Adding a key listener
+    if(event.keyCode === 13){searchButton.click();} //Defining behavior
   });
 });
-  //Advanced Search Button Functionality
+  //"Advanced" button functionality, shows/hides the advanced fields
 function showAdvanced(){
-  let advancedSearch = document.getElementById("advancedSearch");
+  let advancedSearch = document.getElementById("advancedSearch"); //div containing the advanced search fields
   if(advancedSearch.style.display === "block"){
-    advancedSearch.style.display = "none";
+    advancedSearch.style.display = "none"; //If it is showing, hide it
   } else {
-    advancedSearch.style.display = "block";
+    advancedSearch.style.display = "block"; // Else, show it
   }
 }
 
-/* See Setion on Infinite Scrolling */
+  //Used for detecting bottom of page.... See Setion on Infinite Scrolling
 var blockScrolling = false; //Prevents bugs and excess loading
   //Establishing for Future Reference
 var favorites = document.getElementById("favorites"); //The closest div to the favorited images
@@ -30,16 +30,16 @@ var resultsCounter = 0; //Counts number of results returned
 showResultsCount(); //Initializes the image count
 
   //Favorites Button Functionality
-var favSection = document.getElementById("favorites-section");
-var galSection = document.getElementById("gallery-section");
+var favSection = document.getElementById("favorites-section"); //section containing favorites
+var galSection = document.getElementById("gallery-section"); //section containing search results
 
 favSection.style.display = "none"; //Hides favorites initially 
 
-//Changing the visibility of both
+//Function for toggling between favorites/search results
 function showFavorites(){
-  document.body.scrollTop = 0; //Safari
-  document.documentElement.scrollTop = 0; //Everything else
-  if(favSection.style.display === "none"){
+  document.body.scrollTop = 0; //Scroll to the top on Safari
+  document.documentElement.scrollTop = 0; //Scroll to the top on everything else
+  if(favSection.style.display === "none"){ //If favorites hidden
     galSection.style.display = "none"; //Hides gallery
     favSection.style.display = "block"; //Shows favorites
     showFavoritesCount(); //Shows the number of favorites at the top
@@ -55,13 +55,13 @@ function showFavorites(){
 }
   //Basic Search Button
 function search(){
-  document.body.scrollTop = 0; //Safari
-  document.documentElement.scrollTop = 0; //Everything else
-  if(galSection.style.display === "none"){showFavorites();}
+  document.body.scrollTop = 0; //Scroll to the top on Safari
+  document.documentElement.scrollTop = 0; //Scroll to the top on everything else
+  if(galSection.style.display === "none"){showFavorites();} //If the search results are hidden, show them and hide favorites
 
-  callSearchAPI();
+  callSearchAPI(); //Calls the search API
 
-  // Message to inform user that they have seen all search results
+  // Message at the bottom of the search results to inform user that they have seen all search results
   document.getElementById("gallery-message").textContent = "You've reached the edge of the universe, make a new search to continue exploring!"
 }
 
@@ -78,7 +78,7 @@ var examples = ["Andromeda Galaxy", "Apollo", "asteroids","arms","astronauts","a
 "Sun","sunspot","supergiant","supernova","telescope","temperature","theory","transparent","ultraviolet","universe",
 "Ursa Major","Venus","visible light","water","wavelength","waves","Whirlpool Galaxy","white dwarf","x-ray"]
 function makeExample(){
-  inputFields[0].value = examples[Math.floor(Math.random() * examples.length)];
+  inputFields[0].value = examples[Math.floor(Math.random() * examples.length)]; //Selects a random example and fills the search field with it
 }
 
 /************* Creating the gallery columns *************/
@@ -87,47 +87,47 @@ var cols = []; //Array for holding the galleries columns
 
 //Creating columns for gallery images
 for(i=0; i<numOfCols; i++){
-  let col = document.createElement("div");
-  let classname = "col-sm-12 col-md-";
+  let col = document.createElement("div"); //Creates a div
+  let classname = "col-sm-12 col-md-"; //Sets class to bootstrap column, stacks on mobile 
   classname += (Math.ceil(12/numOfCols)).toString(); //Edits the column widths in BS Grid based on numOfCols
   col.className = classname;
 
-  gallery.appendChild(col);
-  cols[cols.length]=col;
+  gallery.appendChild(col); //Append columns to document
+  cols[cols.length]=col; //Append columns to cols array
 }
 
 /************* Onscroll Effects for Infinite Scrolling  *************/
-var loadDistFromBottom = 2000; //Distance for bottom when the next page will be loaded
+var loadDistFromBottom = 3000; //Distance for bottom when the next page will be loaded
   //Disables bottom of page detection while autoscroll is active
 
-var nextHTTPRequest = null;
-var oldScroll = 0;
+var nextHTTPRequest = null; //Holds the next API request
+var oldScroll = 0; //The previous scrollY position
 
 window.onscroll = function(event){
-  //If the user is near the bottom of the page, and it is not autoscrolling 
+  //If the user is near the bottom of the page and it is not autoscrolling and there is another request response to display
   if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - loadDistFromBottom 
       && !blockScrolling && nextHTTPRequest != null){
-      callSearchAPI(nextHTTPRequest);
-      console.log("scroll detected");
+      callSearchAPI(nextHTTPRequest); //Calls the next API
   }
 
   //Floating Search Header
-  let header = document.getElementById("search-area");
-  let top = document.getElementById("top");
-  let newScroll = this.scrollY;
+  let header = document.getElementById("search-area"); //Floating header
+  let top = document.getElementById("top"); //Top search area
+  let newScroll = this.scrollY; //Establishing a new scrollY position
+  //If the user is below the header and scrolling up, show the sticky header, else hid it
   if(window.pageYOffset > top.offsetHeight + top.offsetTop && oldScroll > newScroll){
     header.classList.add("sticky");
   } else {
     header.classList.remove("sticky");
   }
-  oldScroll = newScroll;
+  oldScroll = newScroll; //Updating the previous scrollY position
 };
 
 /************* API Call Handling *************/
 //NASA's API addresses
-var rootAddress = "https://images-api.nasa.gov/";
-var searchExt = "search?media_type=image&"; //always return images
-var assetExt = "asset/";
+var rootAddress = "https://images-api.nasa.gov/"; //Root address for calls
+var searchExt = "search?media_type=image&"; //Search extension, will always return images
+var assetExt = "asset/"; //Asset extension
 
 //Creating an XMLHttpRequest objects
 var searchRequest = new XMLHttpRequest();
@@ -137,7 +137,7 @@ var assetRequest = new XMLHttpRequest();
 searchRequest.onreadystatechange = function(){
   if(searchRequest.readyState === 4){
     if(searchRequest.status === 200){
-       processSearchResponse(searchRequest.responseText);
+       processSearchResponse(searchRequest.responseText); //Calls the function that displays the results
     } else if(searchRequest.status === 400){
       alert("Bad Request");
     } else if(searchRequest.state === 404){
@@ -152,7 +152,7 @@ searchRequest.onreadystatechange = function(){
 assetRequest.onreadystatechange = function(){
   if(assetRequest.readyState === 4){
     if(assetRequest.status === 200){
-       processAssetResponse(assetRequest.responseText);
+       processAssetResponse(assetRequest.responseText); //Calls the function that processes the metadata
     } else if(assetRequest.status === 400){
       alert("Bad Request");
     } else if(assetRequest.state === 404){
@@ -165,25 +165,25 @@ assetRequest.onreadystatechange = function(){
 
 /****** Search Calls ******/
 //Calls NASA's Search API
-function callSearchAPI(address=buildSearchRequest()){
+function callSearchAPI(address=buildSearchRequest()){ //Default address is built using the user input in the UI
   searchRequest.open("GET",address);
   searchRequest.send();
 }
 
 //Creates the Address for API call
 function buildSearchRequest(){
-  let ext = [];
+  let ext = []; //Array for holding uri encodings
   inputFields.forEach(function(elem){
-    if(elem.value !== ""){
-      ext.push(encodeURIComponent(elem.id) + "=" + encodeURIComponent(elem.value));
+    if(elem.value !== ""){ //For each non empty field
+      ext.push(encodeURIComponent(elem.id) + "=" + encodeURIComponent(elem.value));//Adds the uri encoding to the array as a string
     }
   });
   //Joins the root, search, and query
-  return rootAddress+searchExt+ext.join("&");
+  return rootAddress+searchExt+ext.join("&"); //Joins the uri encodings with &
 }
 
 /****** Asset Calls ******/
-function callAssetAPI(nasa_id){
+function callAssetAPI(nasa_id){ //Requires NASA Id for a media image
   assetRequest.open("GET",rootAddress+assetExt+nasa_id);
   assetRequest.send();
 }
@@ -191,13 +191,11 @@ function callAssetAPI(nasa_id){
 /************* Procesing API Response's *************/
 
 /****** Search Response ******/
-function processSearchResponse(responseText){
+function processSearchResponse(responseText){ 
   let searchResponse; //Response object for search request
-  searchResponse = JSON.parse(responseText);
+  searchResponse = JSON.parse(responseText); //Process as JSON
   
-  console.log(searchResponse);
-
-  resultsCounter = searchResponse.collection.metadata.total_hits;
+  resultsCounter = searchResponse.collection.metadata.total_hits; //Updates the results counter for number of search results
   showResultsCount();  //Displays the number of search results
 
   let address = searchResponse.collection.href; //The address of the request
@@ -209,13 +207,13 @@ function processSearchResponse(responseText){
   //Sets the next request address if it exists
   if(searchResponse.collection.links !== undefined){
     let i = 0; //temporary indexer, used to account for previous page links
-    if(searchResponse.collection.links[i].prompt === "Previous"){
-      if(searchResponse.collection.links.length === 2){i++;} 
-      else{nextHTTPRequest = null; return;}
+    if(searchResponse.collection.links[i].prompt === "Previous"){ //if the page has a previous link
+      if(searchResponse.collection.links.length === 2){i++;} //If the page is a middle page, the next link will be the second item in the list
+      else{nextHTTPRequest = null; return;} //If the only link is backwards, then we have reached the end
     }
-    nextHTTPRequest = searchResponse.collection.links[i].href;
+    nextHTTPRequest = searchResponse.collection.links[i].href; //If the page doesn't have previous, it is the first page
   } else {
-    nextHTTPRequest = null;
+    nextHTTPRequest = null; //Anything else returns null
   }
 
   if(isNewSearch){scrollDown(300);} //Only scrolls on new search
@@ -237,11 +235,12 @@ function scrollDownRecu(deltaScroll, scrollDistance){
   }
 }
 
-//Prints the number of search results
+//Displays the number of search results
 function showResultsCount(){
   imageCount.textContent = resultsCounter + " search results.";
 }
 
+//Displays the number of favorited images
 function showFavoritesCount(){
   imageCount.textContent = favCounter + " favorited images.";
 }
@@ -282,7 +281,7 @@ function displayImages(response){
         // formating description
       let description = item.data[0].description;
       description = description.replace(/<a /g, '<a target="_blank"'); //makes all anchor in description open in a new tab
-      
+        //Adding Description
       caption += '<div class="caption"><u>Description</u></div>';
       caption += '<div class="caption-description">'+description+'</div>'
     }
@@ -299,13 +298,13 @@ function displayImages(response){
 var favCols = []; //Array for holding the galleries columns
 //Creating columns for gallery images
 for(i=0; i<numOfCols; i++){
-  let col = document.createElement("div");
-  let classname = "col-sm-12 col-md-";
+  let col = document.createElement("div"); //Creating a div to act as a Bootstrap column
+  let classname = "col-sm-12 col-md-"; //Giving the div the bootstrap Column class, col-sm-12 => stack columns on mobile
   classname += (Math.ceil(12/numOfCols)).toString(); //Edits the column widths in BS Grid based on numOfCols
   col.className = classname;
 
-  favorites.appendChild(col);
-  favCols[favCols.length]=col;
+  favorites.appendChild(col); //Appending to the document
+  favCols[favCols.length]=col; //Appending to the array
 }
 
 function addFavImage(){
@@ -381,7 +380,7 @@ function getLBAnchor(columns){
   }
 }
 
-// Saving for future expansion, currently unused
+// Saving for future expansion, currently UN-USED
   //Get assets for item in a search response
 function getItemAssets(item){
   callAssetAPI(item.data[0]["nasa_id"]);
@@ -390,13 +389,15 @@ function getItemAssets(item){
 /****** Asset Response ******/
 var assetResponse; //Response Object for asset request
 function processAssetResponse(responseText){
-  assetResponse = JSON.parse(responseText);
+  assetResponse = JSON.parse(responseText); //Process as JSON
 
   //Opens Largest Version of Image
   let items = assetResponse.collection.items;
+  //Items are sorted by size, Largest -> Smallest
   for(i=0; i<items.length; i++){
+    //If the item is an image type, open it
     if(items[i].href.includes(".jpg") || items[i].href.includes(".png") || items[i].href.includes(".jpeg")){
-      window.open(items[i].href);
+      window.open(items[i].href); //Opening in a new tab
       break;
     }
   }
